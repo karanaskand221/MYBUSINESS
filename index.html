@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opportunity In Nashik | Join Karan SIR</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root { 
+            --primary: #00b894; 
+            --dark: #2d3436; 
+            --accent: #00d4ff; 
+            --white: #ffffff; 
+            --danger: #141212; 
+            --sidebar-width: 280px;
+        }
+        * { box-sizing: border-box; scroll-behavior: smooth; }
+        body { font-family: 'Poppins', sans-serif; margin: 0; background-color: #f9f9f9; color: var(--dark); line-height: 1.6; overflow-x: hidden; }
+
+        /* Sidebar */
+        .sidebar { position: fixed; left: 0; top: 0; width: var(--sidebar-width); height: 100vh; background: linear-gradient(180deg, var(--primary), #00a085); color: white; transform: translateX(-100%); transition: transform 0.3s ease; z-index: 2000; padding: 20px 0; box-shadow: 2px 0 20px rgba(0,0,0,0.1); }
+        .sidebar.active { transform: translateX(0); }
+        .sidebar-header { padding: 0 25px 20px; border-bottom: 1px solid rgba(255,255,255,0.2); }
+        .logo { font-size: 1.8rem; font-weight: 700; margin: 0; }
+        .sidebar-menu { list-style: none; padding: 20px 0; margin: 0; }
+        .menu-item { padding: 15px 25px; cursor: pointer; transition: 0.3s; display: flex; align-items: center; }
+        .menu-item:hover { background: rgba(255,255,255,0.1); }
+        .menu-item i { margin-right: 12px; width: 20px; }
+        .menu-item.active { background: rgba(255,255,255,0.2); border-right: 4px solid white; }
+        .menu-item.hidden { display: none !important; }
+
+        /* Login Popup */
+        .login-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: none; z-index: 3000; backdrop-filter: blur(5px); }
+        .login-popup { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 40px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); width: 90%; max-width: 400px; text-align: center; }
+        .login-popup h3 { margin: 0 0 30px; color: var(--dark); }
+        .login-tabs { display: flex; margin-bottom: 25px; }
+        .tab-btn { flex: 1; padding: 12px; border: none; background: #f0f0f0; cursor: pointer; border-radius: 10px 10px 0 0; }
+        .tab-btn.active { background: var(--primary); color: white; }
+        .login-form { display: none; }
+        .login-form.active { display: block; }
+        .form-group { margin-bottom: 20px; text-align: left; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; }
+        .form-group input { width: 100%; padding: 12px 16px; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 16px; }
+        .form-group input:focus { outline: none; border-color: var(--primary); }
+        .login-btn { width: 100%; padding: 14px; background: var(--primary); color: white; border: none; border-radius: 10px; font-size: 16px; font-weight: 600; cursor: pointer; }
+        .close-popup { position: absolute; top: 15px; right: 20px; font-size: 24px; cursor: pointer; color: #999; }
+
+        /* Content - SAME AS ORIGINAL */
+        .scarcity-bar { background: #fff3cd; color: #856404; text-align: center; padding: 10px; font-weight: bold; border-bottom: 2px solid #fdcb6e; position: sticky; top: 0; z-index: 1001; font-size: 0.9rem; }
+        .hero { background: linear-gradient(135deg, rgba(0, 184, 148, 0.9), rgba(45, 52, 54, 0.9)), url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1350&q=80'); background-size: cover; background-position: center; color: var(--white); padding: 80px 20px 120px; text-align: center; }
+        .hero h1 { font-size: 3rem; margin-bottom: 10px; text-transform: uppercase; }
+        .slot-tracker { background: white; color: var(--dark); padding: 20px; border-radius: 10px; display: inline-block; margin-top: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        .progress-container { width: 250px; background: #eee; height: 12px; border-radius: 10px; margin: 10px auto; overflow: hidden; }
+        .progress-fill { width: 90%; background: var(--danger); height: 100%; transition: width 0.8s ease-in-out; animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.7; } 100% { opacity: 1; } }
+        .urgent-text { color: var(--danger); font-weight: 800; font-size: 1.2rem; }
+        .btn-container { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-top: 30px; }
+        .btn { padding: 15px 35px; border-radius: 50px; text-decoration: none; font-weight: bold; transition: 0.3s; cursor: pointer; border: none; display: inline-block; }
+        .btn-main { background: #fdcb6e; color: var(--dark); }
+        .btn-mentor { background: transparent; border: 2px solid white; color: white; }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+        .roadmap { text-align: center; padding: 80px 20px; background: white; }
+        .roadmap-img { width: 100%; max-width: 700px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); margin: 30px auto; display: block; }
+        .steps { display: flex; justify-content: space-around; flex-wrap: wrap; max-width: 1000px; margin: 40px auto; }
+        .step { flex: 1; min-width: 200px; padding: 20px; }
+        .step-num { background: var(--primary); color: white; width: 45px; height: 45px; border-radius: 50%; display: inline-block; line-height: 45px; font-weight: bold; margin-bottom: 15px; font-size: 1.2rem; }
+        .stats-section { display: flex; justify-content: center; gap: 40px; padding: 20px; background: #fff; border-bottom: 1px solid #eee; flex-wrap: wrap; }
+        .stats-section div { text-align: center; }
+        .stats-section h3 { margin: 0; color: var(--primary); }
+        .stats-section small { opacity: 0.8; }
+        .why-section { padding: 60px 20px; max-width: 1100px; margin: auto; text-align: center; }
+        .why-section h2 { margin-bottom: 40px; }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        .feature-card { padding: 30px; background: white; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .feature-icon { font-size: 2rem; margin-bottom: 10px; }
+        .feature-card h4 { margin: 0 0 15px; }
+        footer { text-align: center; padding: 40px; background: var(--dark); color: white; }
+        @media (max-width: 768px) { .hero h1 { font-size: 2rem; } }
+    </style>
+</head>
+<body>
+    <!-- SECRET SIDEBAR - DYNAMIC LOGIN/DASHBOARD -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2 class="logo">KK</h2>
+        </div>
+        <ul class="sidebar-menu" id="sidebarMenu">
+            <li class="menu-item active" data-section="home"><i class="fas fa-home"></i> Home</li>
+            
+            <!-- LOGIN PLEASE - VISIBLE BEFORE LOGIN -->
+            <li class="menu-item" id="loginPleaseItem">
+                <i class="fas fa-sign-in-alt"></i> 
+                <span>🔐 Login Admin/Mentor</span>
+            </li>
+            
+            <!-- DASHBOARD - HIDDEN BEFORE LOGIN -->
+            <li class="menu-item hidden" id="dashboardItem">
+                <i class="fas fa-tachometer-alt"></i> 
+                <span id="dashboardText">Dashboard</span>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Login Popup -->
+    <div class="login-overlay" id="loginOverlay">
+        <div class="login-popup">
+            <span class="close-popup" id="closePopup">&times;</span>
+            <h3 id="loginTitle">Admin Login</h3>
+            <div class="login-tabs">
+                <button class="tab-btn active" data-tab="admin">Admin</button>
+                <button class="tab-btn" data-tab="mentor">Mentor</button>
+            </div>
+            <form class="login-form active" id="adminForm">
+                <div class="form-group">
+                    <label>Admin ID</label>
+                    <input type="text" id="adminId" placeholder="KK" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="adminPass" placeholder="********" required>
+                </div>
+                <button type="submit" class="login-btn">Login as Admin</button>
+            </form>
+            <form class="login-form" id="mentorForm">
+                <div class="form-group">
+                    <label>Mentor ID</label>
+                    <input type="text" id="mentorId" placeholder="mentor1" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="mentorPass" placeholder="********" required>
+                </div>
+                <button type="submit" class="login-btn">Login as Mentor</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- CONTENT - SAME AS ORIGINAL -->
+    <div class="scarcity-bar" id="scarcity-text">⚠️ UPDATE: 90 Mentorship slots are already filled this week!</div>
+    <section class="hero">
+        <h1>Own Your Golden Opportunity in Nashik</h1>
+        <p>Join Leader Skilled Program and build a 100% legal income.</p>
+        <div class="slot-tracker">
+            <div class="urgent-text" id="slots-remaining">ONLY 10 SLOTS REMAINING!</div>
+            <div class="progress-container"><div class="progress-fill" id="progress-bar"></div></div>
+            <small id="slot-count-text">90/100 Applicants already selected</small>
+        </div>
+        <div class="btn-container">
+            <a href="booking.html" class="btn btn-main">Book Appointment</a>
+        </div>
+    </section>
+
+    <section class="stats-section">
+        <div><h3 style="margin:0; color:var(--primary);">500+</h3><small>Students Mentored</small></div>
+        <div><h3 style="margin:0; color:var(--primary);">₹10L+</h3><small>Community Earnings</small></div>
+        <div><h3 style="margin:0; color:var(--primary);">100%</h3><small>Legal & Verified</small></div>
+    </section>
+
+    <section class="roadmap">
+        <h2>This is your step by step towards opportunity.</h2>
+        <div class="steps">
+            <div class="step"><div class="step-num">1</div><h3>Apply</h3><p>Submit your details online.</p></div>
+            <div class="step"><div class="step-num">2</div><h3>Meet</h3><p>Claim your direct interview opportunity.</p></div>
+            <div class="step"><div class="step-num">3</div><h3>Learn</h3><p>Get our income systems.</p></div>
+            <div class="step"><div class="step-num">4</div><h3>Earn</h3><p>Start your financial journey.</p></div>
+        </div>
+        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80" alt="Growth Roadmap" class="roadmap-img">
+    </section>
+
+    <section class="why-section">
+        <h2>Why Choose This Opportunity?</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">⏰</div>
+                <h4>Flexible Hours</h4>
+                <p>Work only 2-3 hours a day around your college or job schedule.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">👨‍🏫</div>
+                <h4>Personal Coaching</h4>
+                <p>Direct access to Leader for weekly strategy to Learn.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🛡️</div>
+                <h4>Zero Risk</h4>
+                <p>100% legal Opportunity model based on professional systems.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>&copy; 2026 Business/Work Opportunity | Nashik</footer>
+
+    <script>
+        // Initialize mentors
+        let mentors = JSON.parse(localStorage.getItem('mentors')) || [
+            { id: 'mentor1', name: 'Rajesh Kumar', password: 'mentor123', students: 45, earnings: '₹2.5L' },
+            { id: 'mentor2', name: 'Priya Sharma', password: 'mentor456', students: 32, earnings: '₹1.8L' }
+        ];
+        localStorage.setItem('mentors', JSON.stringify(mentors));
+
+        // DOM Elements
+        const sidebar = document.getElementById('sidebar');
+        const sidebarMenu = document.getElementById('sidebarMenu');
+        const loginPleaseItem = document.getElementById('loginPleaseItem');
+        const dashboardItem = document.getElementById('dashboardItem');
+        const dashboardText = document.getElementById('dashboardText');
+        const loginOverlay = document.getElementById('loginOverlay');
+
+        // Update sidebar based on login status
+        function updateSidebar() {
+            const adminLoggedIn = localStorage.getItem('adminLoggedIn') === 'true';
+            const mentorLoggedIn = localStorage.getItem('mentorLoggedIn');
+
+            if (adminLoggedIn || mentorLoggedIn) {
+                // AFTER LOGIN: Hide Login Please, Show Dashboard
+                loginPleaseItem.classList.add('hidden');
+                dashboardItem.classList.remove('hidden');
+                
+                if (adminLoggedIn) {
+                    dashboardText.innerHTML = '👑 Admin Dashboard';
+                } else if (mentorLoggedIn) {
+                    const mentor = JSON.parse(localStorage.getItem('mentorLoggedIn'));
+                    dashboardText.innerHTML = `📊 ${mentor.name}`;
+                }
+            } else {
+                // BEFORE LOGIN: Show Login Please, Hide Dashboard
+                loginPleaseItem.classList.remove('hidden');
+                dashboardItem.classList.add('hidden');
+            }
+        }
+
+        // Smart dashboard routing
+        function goToDashboard() {
+            const adminLoggedIn = localStorage.getItem('adminLoggedIn') === 'true';
+            const mentorLoggedIn = localStorage.getItem('mentorLoggedIn');
+            
+            if (adminLoggedIn) {
+                window.location.href = 'admin-dashboard.html';
+            } else if (mentorLoggedIn) {
+                window.location.href = 'mentor-dashboard.html';
+            }
+        }
+
+        // Double tap to open sidebar
+        document.addEventListener('dblclick', (e) => {
+            if (e.target.tagName !== 'INPUT' && !sidebar.classList.contains('active')) {
+                sidebar.classList.add('active');
+            }
+        });
+
+        // Close sidebar on outside click
+        document.addEventListener('click', (e) => {
+            if (sidebar.classList.contains('active') && !sidebar.contains(e.target)) {
+                sidebar.classList.remove('active');
+            }
+        });
+
+        // Sidebar menu clicks
+        sidebarMenu.addEventListener('click', (e) => {
+            const item = e.target.closest('.menu-item');
+            if (!item) return;
+
+            if (item.id === 'loginPleaseItem') {
+                // Click "Login Please" → Show popup
+                showLoginPopup('admin');
+            } else if (item.id === 'dashboardItem') {
+                // Click Dashboard → Smart routing
+                goToDashboard();
+            }
+            sidebar.classList.remove('active');
+        });
+
+        // Show login popup
+        function showLoginPopup(type) {
+            loginOverlay.style.display = 'block';
+            document.getElementById('loginTitle').textContent = type.charAt(0).toUpperCase() + type.slice(1) + ' Login';
+            document.getElementById('adminId').value = '';
+            document.getElementById('adminPass').value = '';
+            document.getElementById('mentorId').value = '';
+            document.getElementById('mentorPass').value = '';
+        }
+
+        // Close popup
+        document.getElementById('closePopup').addEventListener('click', () => {
+            loginOverlay.style.display = 'none';
+        });
+        loginOverlay.addEventListener('click', (e) => {
+            if (e.target === loginOverlay) loginOverlay.style.display = 'none';
+        });
+
+        // Tab switching
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.login-form').forEach(f => f.classList.remove('active'));
+                btn.classList.add('active');
+                document.getElementById(btn.dataset.tab + 'Form').classList.add('active');
+            });
+        });
+
+        // Admin Login
+        document.getElementById('adminForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const id = document.getElementById('adminId').value;
+            const pass = document.getElementById('adminPass').value;
+            
+            if (id === 'karanaskand' && pass === 'KK172006') {
+                localStorage.setItem('adminLoggedIn', 'true');
+                localStorage.removeItem('mentorLoggedIn'); // Clear mentor session
+                updateSidebar();
+                loginOverlay.style.display = 'none';
+                alert('✅ Admin login successful! 👑 Dashboard unlocked.');
+            } else {
+                alert('❌ Invalid admin credentials!');
+            }
+        });
+
+        // Mentor Login
+        document.getElementById('mentorForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const id = document.getElementById('mentorId').value;
+            const pass = document.getElementById('mentorPass').value;
+            
+            const mentor = mentors.find(m => m.id === id && m.password === pass);
+            if (mentor) {
+                localStorage.setItem('mentorLoggedIn', JSON.stringify(mentor));
+                localStorage.removeItem('adminLoggedIn'); // Clear admin session
+                updateSidebar();
+                loginOverlay.style.display = 'none';
+                alert(`✅ Welcome ${mentor.name}! 📊 Dashboard unlocked.`);
+            } else {
+                alert('❌ Invalid mentor credentials!');
+            }
+        });
+
+        // Scarcity bar animation
+        const sequence = [90, 91, 93, 95, 97, 99, 99, 99, 99];
+        let visitCount = localStorage.getItem('karan_site_visits');
+        if (visitCount === null) visitCount = 0; else visitCount = (parseInt(visitCount) + 1) % 9;
+        localStorage.setItem('karan_site_visits', visitCount);
+        const currentNumber = sequence[visitCount];
+        const remaining = 100 - currentNumber;
+        document.getElementById('scarcity-text').innerText = `⚠️ UPDATE: ${currentNumber} Mentorship slots are already filled this week!`;
+        document.getElementById('slots-remaining').innerText = `ONLY ${remaining} SLOTS REMAINING!`;
+        document.getElementById('slot-count-text').innerText = `${currentNumber}/100 Applicants already selected`;
+        document.getElementById('progress-bar').style.width = currentNumber + '%';
+
+        // Initial setup
+        updateSidebar();
+    </script>
+</body>
+</html>

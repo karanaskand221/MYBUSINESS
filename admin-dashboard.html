@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Karan SIR</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root { 
+            --primary: #00b894; 
+            --dark: #2d3436; 
+            --accent: #00d4ff; 
+            --white: #ffffff; 
+            --danger: #141212; 
+        }
+        * { box-sizing: border-box; }
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            margin: 0; 
+            background: #f5f7fa; 
+            color: var(--dark); 
+        }
+
+        /* Header */
+        .admin-header {
+            background: linear-gradient(135deg, var(--primary), #00a085); 
+            color: white;
+            padding: 20px 40px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            box-shadow: 0 4px 20px rgba(0,184,148,0.3);
+        }
+        .admin-title { 
+            margin: 0; 
+            font-size: 1.8rem; 
+        }
+        .logout-btn { 
+            background: rgba(255,255,255,0.2); 
+            color: white; 
+            border: none; 
+            padding: 10px 20px; 
+            border-radius: 25px; 
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        .logout-btn:hover { 
+            background: rgba(255,255,255,0.3); 
+            transform: translateY(-2px);
+        }
+
+        /* Main Container */
+        .admin-container {
+            display: grid; 
+            grid-template-columns: 1fr 400px; 
+            height: calc(100vh - 90px); 
+            overflow: hidden;
+        }
+        .mentors-section { 
+            padding: 30px; 
+            overflow-y: auto; 
+        }
+        .add-mentor-section { 
+            background: white; 
+            padding: 30px; 
+            box-shadow: -2px 0 20px rgba(0,0,0,0.05); 
+            overflow-y: auto; 
+        }
+
+        /* Stats Grid */
+        .stats-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 25px; 
+            margin-bottom: 40px; 
+        }
+        .stat-card { 
+            background: white; 
+            padding: 35px; 
+            border-radius: 20px; 
+            text-align: center; 
+            box-shadow: 0 15px 40px rgba(0,0,0,0.08); 
+            transition: 0.3s;
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.12);
+        }
+        .stat-icon { 
+            font-size: 2.5rem; 
+            color: var(--primary); 
+            margin-bottom: 15px; 
+        }
+        .stat-number { 
+            font-size: 2.8rem; 
+            font-weight: 700; 
+            color: var(--primary); 
+            margin: 0; 
+        }
+        .stat-label { 
+            color: #64748b; 
+            margin-top: 10px; 
+            font-size: 1rem; 
+        }
+
+        /* Tabs */
+        .mentors-tabs { 
+            display: flex; 
+            background: white; 
+            border-radius: 15px 15px 0 0; 
+            overflow: hidden; 
+            margin-bottom: 0; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
+        }
+        .tab-btn { 
+            flex: 1; 
+            padding: 20px; 
+            background: none; 
+            border: none; 
+            cursor: pointer; 
+            font-weight: 600; 
+            transition: 0.3s; 
+        }
+        .tab-btn:hover { background: #f0f9ff; }
+        .tab-btn.active { 
+            background: var(--primary); 
+            color: white; 
+        }
+        .tab-content { 
+            display: none; 
+            background: white; 
+            border-radius: 0 0 15px 15px; 
+            overflow: hidden; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
+        }
+        .tab-content.active { 
+            display: block; 
+        }
+
+        /* Table */
+        .mentors-table { 
+            width: 100%; 
+            border-collapse: collapse; 
+        }
+        th, td { 
+            padding: 20px; 
+            text-align: left; 
+            border-bottom: 1px solid #eee; 
+        }
+        th { 
+            background: #f8f9fa; 
+            font-weight: 600; 
+            position: sticky; 
+            top: 0; 
+            z-index: 10; 
+        }
+        .mentor-row:hover { 
+            background: #f8fafc; 
+        }
+        .action-btn { 
+            padding: 10px 16px; 
+            border-radius: 25px; 
+            border: none; 
+            cursor: pointer; 
+            margin-right: 10px; 
+            font-size: 14px; 
+            font-weight: 600; 
+            transition: 0.3s; 
+        }
+        .view-btn { 
+            background: var(--primary); 
+            color: white; 
+        }
+        .view-btn:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 10px 25px rgba(0,184,148,0.4); 
+        }
+        .delete-btn { 
+            background: var(--danger); 
+            color: white; 
+        }
+        .delete-btn:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 10px 25px rgba(20,18,18,0.4); 
+        }
+        .data-badge { 
+            background: #e3f2fd; 
+            padding: 4px 12px; 
+            border-radius: 20px; 
+            font-size: 0.85rem; 
+            font-weight: 600; 
+        }
+
+        /* Add Mentor Form */
+        .add-mentor-form h3 { 
+            margin: 0 0 25px; 
+            color: var(--dark); 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+        }
+        .form-group { 
+            margin-bottom: 25px; 
+        }
+        .form-group label { 
+            display: block; 
+            margin-bottom: 10px; 
+            font-weight: 600; 
+            color: var(--dark); 
+        }
+        .form-group input { 
+            width: 100%; 
+            padding: 16px 20px; 
+            border: 2px solid #e8ecf4; 
+            border-radius: 12px; 
+            font-size: 16px; 
+            transition: 0.3s; 
+        }
+        .form-group input:focus { 
+            outline: none; 
+            border-color: var(--primary); 
+            box-shadow: 0 0 0 3px rgba(0,184,148,0.1); 
+        }
+        .add-mentor-btn { 
+            width: 100%; 
+            padding: 18px; 
+            background: linear-gradient(135deg, var(--primary), #00a085); 
+            color: white; 
+            border: none; 
+            border-radius: 12px; 
+            font-size: 16px; 
+            font-weight: 600; 
+            cursor: pointer; 
+            transition: 0.3s; 
+        }
+        .add-mentor-btn:hover { 
+            transform: translateY(-3px); 
+            box-shadow: 0 15px 35px rgba(0,184,148,0.4); 
+        }
+
+        /* Candidates Table */
+        .candidates-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .candidates-table th,
+        .candidates-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        .candidates-table th {
+            background: #f8f9fa;
+            font-weight: 600;
+        }
+        .status-pending { background: #fef3c7; color: #92400e; }
+        .status-converted { background: #d1fae5; color: #065f46; }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .admin-container { 
+                grid-template-columns: 1fr; 
+                height: auto; 
+            }
+            .add-mentor-section { 
+                padding: 25px; 
+            }
+        }
+        @media (max-width: 768px) {
+            .admin-header { padding: 15px 20px; }
+            .admin-title { font-size: 1.5rem; }
+            .stats-grid { grid-template-columns: 1fr; }
+            .mentors-table, .candidates-table { font-size: 14px; }
+            th, td { padding: 12px 8px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="admin-header">
+        <h1 class="admin-title">
+            <i class="fas fa-user-shield"></i> 
+            Admin Dashboard - Karan SIR
+        </h1>
+        <button class="logout-btn" onclick="logout()">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+    </div>
+
+    <!-- Main Container -->
+    <div class="admin-container">
+        <!-- Left Section - Mentors & Stats -->
+        <div class="mentors-section">
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <i class="fas fa-users stat-icon"></i>
+                    <div class="stat-number" id="totalMentors">0</div>
+                    <div class="stat-label">Total Mentors</div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-user-graduate stat-icon"></i>
+                    <div class="stat-number" id="totalCandidates">0</div>
+                    <div class="stat-label">Total Candidates</div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-rupee-sign stat-icon"></i>
+                    <div class="stat-number" id="totalEarnings">₹0</div>
+                    <div class="stat-label">Total Earnings</div>
+                </div>
+            </div>
+
+            <!-- Tabs -->
+            <div class="mentors-tabs">
+                <button class="tab-btn active" onclick="showTab('overview')">
+                    <i class="fas fa-tachometer-alt"></i> Mentor Overview
+                </button>
+                <button class="tab-btn" onclick="showTab('candidates')">
+                    <i class="fas fa-users"></i> All Candidates
+                </button>
+            </div>
+
+            <!-- Mentor Overview Tab -->
+            <div id="overview" class="tab-content active">
+                <table class="mentors-table">
+                    <thead>
+                        <tr>
+                            <th>Mentor ID</th>
+                            <th>Name</th>
+                            <th>Candidates</th>
+                            <th>Today's Leads</th>
+                            <th>Pending</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="mentorsTbody"></tbody>
+                </table>
+            </div>
+
+            <!-- All Candidates Tab -->
+            <div id="candidates" class="tab-content">
+                <table class="candidates-table" id="allCandidatesTable">
+                    <thead>
+                        <tr>
+                            <th>Mentor</th>
+                            <th>Name</th>
+                            <th>Phone</th>
+                            <th>Status</th>
+                            <th>Entry Date</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Right Section - Add Mentor -->
+        <div class="add-mentor-section">
+            <h3><i class="fas fa-user-plus"></i> Add New Mentor</h3>
+            <form id="addMentorForm">
+                <div class="form-group">
+                    <label>Mentor Name</label>
+                    <input type="text" id="mentorName" placeholder="Enter full name" required>
+                </div>
+                <div class="form-group">
+                    <label>Mentor ID</label>
+                    <input type="text" id="newMentorId" placeholder="Unique ID (e.g., mentor3)" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="newMentorPass" placeholder="Set secure password" required>
+                </div>
+                <button type="submit" class="add-mentor-btn">
+                    <i class="fas fa-plus"></i> Create New Mentor
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Admin login check
+        if (localStorage.getItem('adminLoggedIn') !== 'true') {
+            window.location.href = 'index.html';
+        }
+
+        let mentors = JSON.parse(localStorage.getItem('mentors')) || [];
+
+        // Render mentors table
+        function renderMentors() {
+            const tbody = document.getElementById('mentorsTbody');
+            let totalCandidates = 0, totalToday = 0, totalPending = 0;
+
+            tbody.innerHTML = mentors.map((mentor, index) => {
+                // Load mentor's candidates
+                const mentorCandidates = JSON.parse(localStorage.getItem(`candidates_${mentor.id}`)) || [];
+                const today = mentorCandidates.filter(c => 
+                    new Date(c.entryFull).toDateString() === new Date().toDateString()
+                ).length;
+                const pending = mentorCandidates.filter(c => c.status === 'Pending').length;
+                
+                totalCandidates += mentorCandidates.length;
+                totalToday += today;
+                totalPending += pending;
+
+                return `
+                    <tr class="mentor-row">
+                        <td><strong style="color: var(--primary);">${mentor.id}</strong></td>
+                        <td>${mentor.name}</td>
+                        <td><span class="data-badge">${mentorCandidates.length}</span></td>
+                        <td><span class="data-badge" style="background: #d1fae5; color: #065f46;">${today}</span></td>
+                        <td><span class="data-badge" style="background: #fef3c7; color: #92400e;">${pending}</span></td>
+                        <td>
+                            <button class="action-btn view-btn" onclick="openMentorDashboard('${mentor.id}')">
+                                <i class="fas fa-eye"></i> View
+                            </button>
+                            <button class="action-btn delete-btn" onclick="deleteMentor(${index})">
+                                <i class="fas fa-trash"></i> Delete
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+
+            // Update stats
+            document.getElementById('totalMentors').textContent = mentors.length;
+            document.getElementById('totalCandidates').textContent = totalCandidates;
+            document.getElementById('totalEarnings').textContent = '₹' + Math.round(totalCandidates * 500) + 'K+';
+        }
+
+        // Open specific mentor dashboard
+        function openMentorDashboard(mentorId) {
+            const mentor = mentors.find(m => m.id === mentorId);
+            localStorage.setItem('mentorLoggedIn', JSON.stringify(mentor));
+            window.open('mentor-dashboard.html', '_blank');
+        }
+
+        // Delete mentor
+        function deleteMentor(index) {
+            if (confirm('Delete this mentor and all their data?')) {
+                const mentor = mentors[index];
+                localStorage.removeItem(`candidates_${mentor.id}`);
+                mentors.splice(index, 1);
+                localStorage.setItem('mentors', JSON.stringify(mentors));
+                renderMentors();
+                renderAllCandidates();
+            }
+        }
+
+        // Logout
+        function logout() {
+            localStorage.removeItem('adminLoggedIn');
+            window.location.href = 'index.html';
+        }
+
+        // Tab functionality
+        function showTab(tabName) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            event.target.classList.add('active');
+            document.getElementById(tabName).classList.add('active');
+            
+            if (tabName === 'candidates') {
+                renderAllCandidates();
+            }
+        }
+
+        // Render all candidates from all mentors
+        function renderAllCandidates() {
+            const tbody = document.querySelector('#allCandidatesTable tbody');
+            let allCandidates = [];
+
+            mentors.forEach(mentor => {
+                const mentorCandidates = JSON.parse(localStorage.getItem(`candidates_${mentor.id}`)) || [];
+                mentorCandidates.forEach(candidate => {
+                    candidate.mentorId = mentor.id;
+                    candidate.mentorName = mentor.name;
+                    allCandidates.push(candidate);
+                });
+            });
+
+            tbody.innerHTML = allCandidates.map(candidate => {
+                const statusClass = candidate.status === 'Pending' ? 'status-pending' : 'status-converted';
+                return `
+                    <tr>
+                        <td><strong>${candidate.mentorName}</strong></td>
+                        <td>${candidate.name}</td>
+                        <td>${candidate.phone}</td>
+                        <td><span class="data-badge ${statusClass}">${candidate.status}</span></td>
+                        <td>${new Date(candidate.entryFull).toLocaleDateString('en-IN')}</td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        // Add mentor form
+        document.getElementById('addMentorForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('mentorName').value;
+            const id = document.getElementById('newMentorId').value;
+            const pass = document.getElementById('newMentorPass').value;
+
+            if (mentors.find(m => m.id === id)) {
+                alert('❌ Mentor ID already exists!');
+                return;
+            }
+
+            mentors.push({
+                id: id, 
+                name: name, 
+                password: pass,
+                students: 0, 
+                earnings: '₹0'
+            });
+            
+            localStorage.setItem('mentors', JSON.stringify(mentors));
+            renderMentors();
+            e.target.reset();
+            alert('✅ New mentor created successfully!');
+        });
+
+        // Initial load
+        renderMentors();
+    </script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Appointment | Nashik Academy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #00d4ff; --dark: #0a0a0a; }
+        body { font-family: 'Poppins', sans-serif; margin: 0; background: var(--dark); color: white; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
+        .form-card { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); padding: 40px; border-radius: 15px; border: 1px solid rgba(0, 212, 255, 0.2); width: 100%; max-width: 550px; box-shadow: 0 0 30px rgba(0, 212, 255, 0.15); }
+        .form-card input, .form-card select { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #333; border-radius: 8px; background: #1a1a1a; color: #fff; font-family: inherit; }
+        h3 { color: var(--primary); text-align: center; margin-bottom: 25px; }
+        #submit_btn { width: 100%; padding: 15px; background: var(--primary); color: #000; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; transition: 0.3s; }
+        #submit_btn:hover { opacity: 0.9; }
+        #submit_btn:disabled { background: #555; cursor: not-allowed; }
+        .back-link { display: block; text-align: center; margin-top: 20px; color: #ccc; text-decoration: none; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+
+<div class="form-card">
+    <div id="thank_you_message" style="display: none; text-align: center; padding: 20px 0;">
+        <div style="font-size: 50px; margin-bottom: 15px;">✅</div>
+        <h3 style="color: #00d4ff;">Application Submitted!</h3>
+        <p style="color: #ccc;">Data saved to HR Sheet and Dashboard.</p>
+        <a href="index.html" style="color: #00d4ff; text-decoration: none;">Return to Home</a>
+    </div>
+
+    <form id="upload_form">
+        <h3>Reserve Your Mentorship Slot</h3>
+        
+        <input type="text" name="name" placeholder="Full Name" required>
+        <input type="tel" name="phone" placeholder="Phone Number" required>
+        
+        <select name="mentor" id="mentor_dropdown" required>
+            <option value="">Choose Your Mentor</option>
+        </select>
+
+        <select name="location" required>
+            <option value="">Select Area in Nashik</option>
+            <option value="Mumbai Naka">Mumbai Naka</option>
+            <option value="College Road">College Road</option>
+            <option value="Panchavati">Panchavati</option>
+        </select>
+
+        <input type="text" name="address" placeholder="Full Address">
+
+        <div style="display: flex; gap: 15px; margin: 15px 0; font-size: 0.8rem; color: #ccc;">
+            <label><input type="radio" name="work_type" value="Full Time" checked> Full Time</label>
+            <label><input type="radio" name="work_type" value="Part Time"> Part Time</label>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px;">
+            <div>
+                <label style="color: #00d4ff; font-size: 0.65rem;">RESUME</label>
+                <input type="file" id="file_resume" accept="image/*,application/pdf">
+            </div>
+            <div>
+                <label style="color: #00d4ff; font-size: 0.65rem;">AADHAR CARD</label>
+                <input type="file" id="file_aadhar" accept="image/*,application/pdf">
+            </div>
+        </div>
+
+        <button type="submit" id="submit_btn">SUBMIT TO HR</button>
+        <a href="index.html" class="back-link">← Cancel and Go Back</a>
+    </form>
+</div>
+
+<script>
+    // Load Mentors from LocalStorage
+    const mentorDropdown = document.getElementById('mentor_dropdown');
+    const mentorsList = JSON.parse(localStorage.getItem('mentors_list') || '["Karan Sir"]');
+    mentorsList.forEach(m => {
+        let opt = document.createElement('option');
+        opt.value = m;
+        opt.innerHTML = m;
+        mentorDropdown.appendChild(opt);
+    });
+
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbztUoby2vPxr3n8OjOdCSdS5Bt5OwB0FRHNMiCBPGw38Fm6cEo2MYJiQCbWEe6naDZG/exec";
+    const form = document.getElementById('upload_form');
+    const btn = document.getElementById('submit_btn');
+
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        btn.disabled = true;
+        btn.innerText = "SAVING DATA...";
+
+        const formData = new FormData(this);
+        
+        // 1. SAVE TO LOCAL DASHBOARD (your_data.html)
+        const localLead = {
+            mentor: formData.get('mentor'),
+            name: formData.get('name'),
+            phone: formData.get('phone'),
+            workType: formData.get('work_type'),
+            address: formData.get('address'),
+            status: 'New Online Lead',
+            entryTime: new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
+        };
+        let candidates = JSON.parse(localStorage.getItem('candidate_records') || '[]');
+        candidates.push(localLead);
+        localStorage.setItem('candidate_records', JSON.stringify(candidates));
+
+        // 2. SAVE TO GOOGLE SHEETS
+        const toBase64 = file => new Promise((resolve) => {
+            if(!file || !file.size) resolve(null);
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = () => resolve(null);
+        });
+
+        const payload = new URLSearchParams();
+        formData.forEach((value, key) => payload.append(key, value));
+        
+        const resumeFile = document.getElementById('file_resume').files[0];
+        if(resumeFile) { 
+            payload.append('resumeData', await toBase64(resumeFile)); 
+            payload.append('resumeName', resumeFile.name); 
+        }
+
+        fetch(SCRIPT_URL, { method: 'POST', body: payload, mode: 'no-cors' })
+        .then(() => {
+            form.style.display = 'none';
+            document.getElementById('thank_you_message').style.display = 'block';
+        }).catch(err => {
+            alert("Error saving. Data saved to local dashboard only.");
+            btn.disabled = false;
+        });
+    });
+</script>
+</body>
+</html>
