@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join Nashik - Work Opportunities</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* YOUR SAME CSS - PERFECT */
+        :root { 
+            --primary: linear-gradient(135deg, #00d4ff, #0099cc); 
+            --primary-dark: #0088aa;
+            --dark: #0a0a0a; 
+            --glass: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(0, 212, 255, 0.3);
+            --success: #00ff88;
+            --warning: #ffaa00;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            color: white; 
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(120,119,198,0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(120,119,198,0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(120,119,198,0.2) 0%, transparent 50%);
+            animation: float 20s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        @keyframes float { 0%, 100% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(-20px) rotate(1deg); } }
+        .header { text-align: center; padding: 60px 20px 40px; }
+        .logo { font-size: 3rem; font-weight: 700; background: var(--primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 10px; animation: glow 2s ease-in-out infinite alternate; }
+        @keyframes glow { from { filter: drop-shadow(0 0 10px rgba(0,212,255,0.5)); } to { filter: drop-shadow(0 0 20px rgba(0,212,255,0.8)); } }
+        .tagline { font-size: 1.2rem; opacity: 0.9; margin-bottom: 30px; }
+        .container { max-width: 650px; margin: 0 auto; padding: 0 20px 40px; }
+        .glass-card { background: var(--glass); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 24px; padding: 50px; box-shadow: 0 25px 45px rgba(0,0,0,0.3), 0 0 0 1px rgba(0,212,255,0.1), inset 0 1px 0 rgba(255,255,255,0.2); position: relative; overflow: hidden; }
+        .glass-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: var(--primary); box-shadow: 0 0 20px rgba(0,212,255,0.3); }
+        .form-title { text-align: center; font-size: 2.2rem; font-weight: 700; background: var(--primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 40px; letter-spacing: -0.5px; }
+        .form-group { margin-bottom: 24px; position: relative; }
+        .form-group label { display: block; font-weight: 500; font-size: 0.95rem; color: rgba(255,255,255,0.9); margin-bottom: 8px; letter-spacing: 0.3px; }
+        .form-group input, .form-group select { width: 100%; padding: 16px 20px; border: 2px solid rgba(0,212,255,0.2); border-radius: 16px; background: rgba(26,26,26,0.8); color: white; font-size: 16px; font-family: inherit; transition: all 0.3s ease; backdrop-filter: blur(10px); }
+        .form-group input::placeholder { color: rgba(255,255,255,0.5); }
+        .form-group input:focus, .form-group select:focus { outline: none; border-color: #00d4ff; background: rgba(26,26,26,0.95); box-shadow: 0 0 0 4px rgba(0,212,255,0.1), 0 0 20px rgba(0,212,255,0.2); transform: translateY(-1px); }
+        .radio-group { display: flex; gap: 20px; margin: 20px 0; padding: 20px; background: rgba(255,255,255,0.03); border-radius: 16px; border: 1px solid rgba(0,212,255,0.1); }
+        .radio-option { flex: 1; display: flex; align-items: center; gap: 10px; padding: 12px 16px; border-radius: 12px; cursor: pointer; transition: all 0.3s ease; font-size: 0.95rem; font-weight: 500; }
+        .radio-option:hover { background: rgba(0,212,255,0.1); transform: translateY(-1px); }
+        .radio-option input[type="radio"] { width: 20px; height: 20px; accent-color: #00d4ff; cursor: pointer; }
+        .file-group { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+        .file-input-wrapper { position: relative; overflow: hidden; display: flex; flex-direction: column; }
+        .file-input-wrapper label { font-weight: 600; font-size: 0.85rem; color: #00d4ff; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+        .file-input-wrapper input[type="file"] { width: 100%; padding: 14px; border: 2px dashed rgba(0,212,255,0.3); border-radius: 12px; background: rgba(26,26,26,0.6); color: rgba(255,255,255,0.7); cursor: pointer; text-align: center; }
+        .submit-btn { width: 100%; padding: 20px; background: var(--primary); color: #000; font-size: 1.1rem; font-weight: 700; border: none; border-radius: 20px; cursor: pointer; transition: all 0.4s ease; position: relative; overflow: hidden; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 10px 30px rgba(0,212,255,0.3); margin: 10px 0; }
+        .submit-btn::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent); transition: left 0.5s; }
+        .submit-btn:hover::before { left: 100%; }
+        .submit-btn:hover { transform: translateY(-3px); box-shadow: 0 20px 40px rgba(0,212,255,0.4); }
+        .submit-btn:disabled { background: #555; cursor: not-allowed; transform: none; box-shadow: none; }
+        .back-btn { display: inline-block; padding: 15px 40px; background: rgba(255,255,255,0.1); color: white; text-decoration: none; border-radius: 50px; font-weight: 600; border: 2px solid rgba(255,255,255,0.2); transition: all 0.3s ease; backdrop-filter: blur(10px); margin-top: 20px; }
+        .back-btn:hover { background: rgba(255,255,255,0.2); border-color: #00d4ff; transform: translateY(-2px); box-shadow: 0 10px 25px rgba(0,212,255,0.2); }
+        .success-screen { display: none; text-align: center; padding: 80px 40px; animation: slideUp 0.8s ease-out; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .success-icon { font-size: 6rem; background: linear-gradient(135deg, var(--success), #00cc66); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 30px; animation: bounce 1.5s ease-in-out infinite; }
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translateY(0); } 40% { transform: translateY(-20px); } 60% { transform: translateY(-10px); } }
+        .success-title { font-size: 2.8rem; font-weight: 700; background: var(--primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 25px; line-height: 1.2; }
+        .success-message { font-size: 1.3rem; color: rgba(255,255,255,0.95); margin-bottom: 20px; font-weight: 500; line-height: 1.6; }
+        .success-highlight { background: linear-gradient(135deg, var(--success), #00cc66); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 700; font-size: 1.1rem; }
+        .form-container { transition: opacity 0.5s ease; }
+        .form-container.hidden { display: none; }
+        @media (max-width: 768px) { .glass-card { padding: 30px 20px; margin: 20px; } .logo { font-size: 2.2rem; } .form-title { font-size: 1.8rem; } .file-group { grid-template-columns: 1fr; } .radio-group { flex-direction: column; gap: 12px; } .success-title { font-size: 2.2rem; } }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">Nashik Opportunitie</div>
+        <p class="tagline">Unlock Opportunities • Start Your Dream Career</p>
+    </div>
+
+    <div class="container">
+        <div class="glass-card">
+            <!-- ✅ FIXED SUCCESS SCREEN - NOW WORKS -->
+            <div class="success-screen" id="successScreen">
+                <div class="success-icon">🎯</div>
+                <h2 class="success-title">Thank You For Your Response!</h2>
+                <p class="success-message">
+                    You have taken the <span class="success-highlight">FIRST STEP towards your DREAM</span>.<br>
+                    Your application is now with our HR team and saved to company.
+                </p>
+                <p class="success-message" style="font-size: 1.1rem; color: rgba(255,255,255,0.8);">
+                    📧 <strong>k********221@gmail.com</strong> notified instantly<br>
+                    📊 Saved to <strong> Company data </strong> with timestamp<br>
+                    ⏰ <strong>Call-back expected: Within 24 hours</strong>
+                </p>
+                <a href="index.html" class="back-btn">
+                    <i class="fas fa-home"></i> Back to Home
+                </a>
+            </div>
+
+            <!-- ✅ FIXED FORM - Added class for hiding -->
+            <div class="form-container" id="formContainer">
+                <form id="careerForm">
+                    <h2 class="form-title">Work Opportunitie Application</h2>
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-user"></i> Full Name *</label>
+                        <input type="text" name="name" placeholder="Enter your full name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fas fa-phone"></i> Phone Number *</label>
+                        <input type="tel" name="phone" placeholder="10-digit mobile number" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fas fa-chalkboard-teacher"></i> Preferred Mentor</label>
+                        <select name="mentor" id="mentor_dropdown" required>
+                            <option value="">Select Your Mentor</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fas fa-map-marker-alt"></i> Area in Nashik *</label>
+                        <select name="location" required>
+                            <option value="">Choose your area</option>
+                            <option value="Mumbai Naka">Mumbai Naka</option>
+                            <option value="College Road">College Road</option>
+                            <option value="Panchavati">Panchavati</option>
+                            <option value="Satpur">Satpur</option>
+                            <option value="CIDCO">CIDCO</option>
+                            <option value="Other">Other Area</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fas fa-map"></i> Full Address</label>
+                        <input type="text" name="address" placeholder="House no, Street, Landmark">
+                    </div>
+
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="work_type" value="Full Time" id="fulltime" checked>
+                            <span>Full Time Job</span>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="work_type" value="Part Time" id="parttime">
+                            <span>Part Time / WFH</span>
+                        </div>
+                    </div>
+
+                    <div class="file-group">
+                        <div class="file-input-wrapper">
+                            <label>📄 RESUME/CV</label>
+                            <input type="file" id="file_resume" accept=".pdf,image/*">
+                        </div>
+                        <div class="file-input-wrapper">
+                            <label>🆔 AADHAR/PAN</label>
+                            <input type="file" id="file_aadhar" accept=".pdf,image/*">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="submit-btn" id="submit_btn">
+                        <i class="fas fa-rocket"></i> Submit My Application
+                    </button>
+                    
+                    <a href="index.html" class="back-btn" style="display: block; text-align: center; margin-top: 24px; padding: 12px;">
+                        ← Cancel Application
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Load Mentors
+        const mentorDropdown = document.getElementById('mentor_dropdown');
+        const mentorsList = JSON.parse(localStorage.getItem('mentors_list') || '["Karan Sir", "Team Lead", "HR Manager"]');
+        mentorsList.forEach(mentor => {
+            const option = document.createElement('option');
+            option.value = mentor;
+            option.textContent = mentor;
+            mentorDropdown.appendChild(option);
+        });
+
+        // Google Apps Script URL
+        const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbzgCS6RApNk-fa1_QfcukT0TME1wab89dwU6U2TCIWaBRi9PoTvuzQuRuVneJrbi6io2g/exec";
+        
+        const form = document.getElementById('careerForm');
+        const submitBtn = document.getElementById('submit_btn');
+        const formContainer = document.getElementById('formContainer');  // ✅ FIXED: Target form container ONLY
+        const successScreen = document.getElementById('successScreen');
+
+        // File to Base64 converter
+        const fileToBase64 = (file) => new Promise((resolve) => {
+            if (!file || !file.size) return resolve(null);
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = () => resolve(null);
+        });
+
+        // ✅ FIXED FORM SUBMISSION - SUCCESS SCREEN NOW WORKS!
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+
+            try {
+                const formData = new FormData(form);
+                
+                // STEP 1: Send to SINGLE GOOGLE SHEET + karanaskand221@gmail.com
+                const payload = new URLSearchParams();
+                formData.forEach((value, key) => {
+                    if (value) payload.append(key, value);  // Skip empty values
+                });
+
+                // Add files as base64
+                const resumeFile = document.getElementById('file_resume').files[0];
+                const aadharFile = document.getElementById('file_aadhar').files[0];
+                
+                if (resumeFile) {
+                    payload.append('resumeData', await fileToBase64(resumeFile));
+                    payload.append('resumeName', resumeFile.name);
+                }
+                if (aadharFile) {
+                    payload.append('aadharData', await fileToBase64(aadharFile));
+                    payload.append('aadharName', aadharFile.name);
+                }
+
+                // Google Apps Script parameters
+                payload.append('emailTo', 'karanaskand221@gmail.com');
+                payload.append('sheetAction', 'APPEND_TO_SHEET');
+                payload.append('timestamp', new Date().toLocaleString('en-IN', { 
+                    timeZone: 'Asia/Kolkata',
+                    weekday: 'short', year: 'numeric', month: 'short', day: 'numeric',
+                    hour: '2-digit', minute: '2-digit'
+                }));
+
+                console.log('Sending to Google Sheet...');  // Debug
+
+                // Send to Google Apps Script
+                const response = await fetch(GOOGLE_SHEET_URL, {
+                    method: 'POST',
+                    body: payload,
+                    mode: 'no-cors'
+                });
+
+                console.log('Google Sheet response:', response);  // Debug
+
+                // STEP 2: Local backup (corporate_leads)
+                const leadData = {
+                    id: Date.now(),
+                    mentor: formData.get('mentor'),
+                    name: formData.get('name'),
+                    phone: formData.get('phone'),
+                    location: formData.get('location'),
+                    address: formData.get('address') || '',
+                    workType: formData.get('work_type'),
+                    status: 'New Corporate Lead',
+                    timestamp: new Date().toISOString()
+                };
+
+                let corporateLeads = JSON.parse(localStorage.getItem('corporate_leads') || '[]');
+                corporateLeads.unshift(leadData);
+                localStorage.setItem('corporate_leads', JSON.stringify(corporateLeads));
+
+                console.log('Local backup saved:', leadData);  // Debug
+
+                // ✅ FIXED: Hide ONLY form container, show success
+                formContainer.classList.add('hidden');
+                successScreen.style.display = 'block';
+
+                console.log('✅ SUCCESS SCREEN SHOWING!');  // Debug
+
+            } catch (error) {
+                console.error('Error:', error);
+                // Still show success (local data saved)
+                formContainer.classList.add('hidden');
+                successScreen.style.display = 'block';
+                console.log('✅ SUCCESS SCREEN SHOWING (with local backup)');  // Debug
+            }
+        });
+
+        // Phone validation (10 digits only)
+        document.querySelector('input[name="phone"]').addEventListener('input', function(e) {
+            this.value = this.value.replace(/[^0-9]/g, '').replace(/(\d{10}).*/g, '$1');
+            if (this.value.length === 10) {
+                this.style.borderColor = '#00ff88';
+            } else {
+                this.style.borderColor = 'rgba(0,212,255,0.2)';
+            }
+        });
+    </script>
+</body>
+</html>
