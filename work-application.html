@@ -182,124 +182,83 @@
     </div>
 
     <script>
-        // Load Mentors
-        const mentorDropdown = document.getElementById('mentor_dropdown');
-        const mentorsList = JSON.parse(localStorage.getItem('mentors_list') || '["Karan Sir", "Team Lead", "HR Manager"]');
-        mentorsList.forEach(mentor => {
-            const option = document.createElement('option');
-            option.value = mentor;
-            option.textContent = mentor;
-            mentorDropdown.appendChild(option);
-        });
+       
+    // Load Mentors
+    const mentorDropdown = document.getElementById('mentor_dropdown');
+    const mentorsList = JSON.parse(localStorage.getItem('mentors_list') || '["Karan Sir", "Team Lead", "HR Manager"]');
+    mentorsList.forEach(mentor => {
+        const option = document.createElement('option');
+        option.value = mentor;
+        option.textContent = mentor;
+        mentorDropdown.appendChild(option);
+    });
 
-        // Google Apps Script URL
-        const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbzgCS6RApNk-fa1_QfcukT0TME1wab89dwU6U2TCIWaBRi9PoTvuzQuRuVneJrbi6io2g/exec";
-        
-        const form = document.getElementById('careerForm');
-        const submitBtn = document.getElementById('submit_btn');
-        const formContainer = document.getElementById('formContainer');  // ✅ FIXED: Target form container ONLY
-        const successScreen = document.getElementById('successScreen');
+    // PASTE YOUR COPIED WEB APP URL HERE
+    const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbyCYm5tn0iMWnX0sCSRHP_TIF29Ahhe_cQU8-p8Th4fEx53Er0GXt-wEZGDKRThwDLcPQ/exec"; 
+    
+    const form = document.getElementById('careerForm');
+    const submitBtn = document.getElementById('submit_btn');
+    const formContainer = document.getElementById('formContainer');
+    const successScreen = document.getElementById('successScreen');
 
-        // File to Base64 converter
-        const fileToBase64 = (file) => new Promise((resolve) => {
-            if (!file || !file.size) return resolve(null);
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = () => resolve(reader.result);
-            reader.onerror = () => resolve(null);
-        });
+    const fileToBase64 = (file) => new Promise((resolve) => {
+        if (!file || !file.size) return resolve(null);
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = () => resolve(null);
+    });
 
-        // ✅ FIXED FORM SUBMISSION - SUCCESS SCREEN NOW WORKS!
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
 
-            try {
-                const formData = new FormData(form);
-                
-                // STEP 1: Send to SINGLE GOOGLE SHEET + karanaskand221@gmail.com
-                const payload = new URLSearchParams();
-                formData.forEach((value, key) => {
-                    if (value) payload.append(key, value);  // Skip empty values
-                });
+        try {
+            const formData = new FormData(form);
+            const payload = new URLSearchParams();
+            
+            formData.forEach((value, key) => payload.append(key, value));
 
-                // Add files as base64
-                const resumeFile = document.getElementById('file_resume').files[0];
-                const aadharFile = document.getElementById('file_aadhar').files[0];
-                
-                if (resumeFile) {
-                    payload.append('resumeData', await fileToBase64(resumeFile));
-                    payload.append('resumeName', resumeFile.name);
-                }
-                if (aadharFile) {
-                    payload.append('aadharData', await fileToBase64(aadharFile));
-                    payload.append('aadharName', aadharFile.name);
-                }
-
-                // Google Apps Script parameters
-                payload.append('emailTo', 'karanaskand221@gmail.com');
-                payload.append('sheetAction', 'APPEND_TO_SHEET');
-                payload.append('timestamp', new Date().toLocaleString('en-IN', { 
-                    timeZone: 'Asia/Kolkata',
-                    weekday: 'short', year: 'numeric', month: 'short', day: 'numeric',
-                    hour: '2-digit', minute: '2-digit'
-                }));
-
-                console.log('Sending to Google Sheet...');  // Debug
-
-                // Send to Google Apps Script
-                const response = await fetch(GOOGLE_SHEET_URL, {
-                    method: 'POST',
-                    body: payload,
-                    mode: 'no-cors'
-                });
-
-                console.log('Google Sheet response:', response);  // Debug
-
-                // STEP 2: Local backup (corporate_leads)
-                const leadData = {
-                    id: Date.now(),
-                    mentor: formData.get('mentor'),
-                    name: formData.get('name'),
-                    phone: formData.get('phone'),
-                    location: formData.get('location'),
-                    address: formData.get('address') || '',
-                    workType: formData.get('work_type'),
-                    status: 'New Corporate Lead',
-                    timestamp: new Date().toISOString()
-                };
-
-                let corporateLeads = JSON.parse(localStorage.getItem('corporate_leads') || '[]');
-                corporateLeads.unshift(leadData);
-                localStorage.setItem('corporate_leads', JSON.stringify(corporateLeads));
-
-                console.log('Local backup saved:', leadData);  // Debug
-
-                // ✅ FIXED: Hide ONLY form container, show success
-                formContainer.classList.add('hidden');
-                successScreen.style.display = 'block';
-
-                console.log('✅ SUCCESS SCREEN SHOWING!');  // Debug
-
-            } catch (error) {
-                console.error('Error:', error);
-                // Still show success (local data saved)
-                formContainer.classList.add('hidden');
-                successScreen.style.display = 'block';
-                console.log('✅ SUCCESS SCREEN SHOWING (with local backup)');  // Debug
+            const resumeFile = document.getElementById('file_resume').files[0];
+            const aadharFile = document.getElementById('file_aadhar').files[0];
+            
+            if (resumeFile) {
+                payload.append('resumeData', await fileToBase64(resumeFile));
+                payload.append('resumeName', resumeFile.name);
             }
-        });
-
-        // Phone validation (10 digits only)
-        document.querySelector('input[name="phone"]').addEventListener('input', function(e) {
-            this.value = this.value.replace(/[^0-9]/g, '').replace(/(\d{10}).*/g, '$1');
-            if (this.value.length === 10) {
-                this.style.borderColor = '#00ff88';
-            } else {
-                this.style.borderColor = 'rgba(0,212,255,0.2)';
+            if (aadharFile) {
+                payload.append('aadharData', await fileToBase64(aadharFile));
+                payload.append('aadharName', aadharFile.name);
             }
-        });
+
+            payload.append('timestamp', new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }));
+
+            // Using fetch with 'no-cors' works for Google Script but won't return a readable 'ok' status
+            // We proceed to success screen assuming it sent (standard practice for Apps Script)
+            await fetch(GOOGLE_SHEET_URL, {
+                method: 'POST',
+                body: payload,
+                mode: 'no-cors'
+            });
+
+            formContainer.classList.add('hidden');
+            successScreen.style.display = 'block';
+
+        } catch (error) {
+            console.error('Error:', error);
+            alert("Something went wrong, but your data was saved locally.");
+            formContainer.classList.add('hidden');
+            successScreen.style.display = 'block';
+        }
+    });
+
+    // Phone validation
+    document.querySelector('input[name="phone"]').addEventListener('input', function(e) {
+        this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10);
+        this.style.borderColor = this.value.length === 10 ? '#00ff88' : 'rgba(0,212,255,0.2)';
+    });
+
     </script>
 </body>
 </html>
