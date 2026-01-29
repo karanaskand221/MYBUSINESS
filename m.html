@@ -32,7 +32,7 @@
             touch-action: manipulation;
         }
 
-        /* Sidebar - SAME */
+        /* Sidebar - SAME AS FIRST */
         .sidebar { 
             position: fixed; 
             left: 0; 
@@ -62,7 +62,7 @@
         .menu-item i { margin-right: 12px; width: 20px; }
         .menu-item.active { background: rgba(255,255,255,0.2); border-right: 4px solid white; }
 
-        /* Header - SAME */
+        /* Header - SAME AS FIRST */
         .mentor-header {
             background: linear-gradient(135deg, var(--primary), #00a085); 
             color: white;
@@ -129,7 +129,7 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
 
-        /* Main Container - SAME */
+        /* Main Container - SAME AS FIRST */
         .mentor-container {
             display: flex;
             flex-direction: column;
@@ -140,7 +140,7 @@
             margin: 0 auto;
         }
 
-        /* Stats Grid - SAME */
+        /* Stats Grid - SAME AS FIRST */
         .stats-grid { 
             display: grid; 
             grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); 
@@ -188,7 +188,7 @@
         .today-leads { color: var(--success); }
         .pending-leads { color: #92400e; }
 
-        /* Filters - WITH DATE FILTER */
+        /* Filters - SAME AS FIRST */
         .filters-section {
             background: white;
             border-radius: var(--border-radius);
@@ -235,7 +235,7 @@
         }
         .clear-filters:hover { background: #4b5563; transform: translateY(-1px); }
 
-        /* Candidates Section - SAME */
+        /* Candidates Section - SAME AS FIRST */
         .candidates-section {
             background: white;
             border-radius: var(--border-radius);
@@ -275,7 +275,7 @@
         }
         .view-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(253,203,110,0.4); }
 
-        /* Mobile Cards - ONLY PHONE CALL BUTTON */
+        /* Mobile Cards - EXACT SAME AS FIRST */
         .candidates-list { display: block; }
         .candidate-card {
             display: flex;
@@ -290,7 +290,7 @@
         .candidate-info { flex: 1; min-width: 0; }
         .candidate-name {
             font-weight: 600;
-            margin: 0 0 8px 0;
+            margin: 0 0 4px 0;
             font-size: 1rem;
         }
         .candidate-meta {
@@ -299,37 +299,16 @@
             gap: 12px;
             font-size: 0.85rem;
             color: #64748b;
-            margin-bottom: 12px;
         }
         .candidate-phone {
             font-weight: 600;
             color: var(--primary);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .candidate-phone-call {
-            background: var(--success);
-            color: white;
-            padding: 6px 10px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            font-weight: 600;
-        }
-        .candidate-phone-call:hover { 
-            background: #059669; 
-            transform: scale(1.05); 
         }
         .candidate-status {
             display: flex;
             align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 8px;
         }
         .candidate-actions {
             display: flex;
@@ -337,21 +316,16 @@
             align-items: center;
         }
 
-        /* Status Badges - FULLY FUNCTIONAL */
+        /* Badges & Buttons - SAME AS FIRST */
         .status-badge, .call-status-badge { 
-            padding: 8px 14px; 
+            padding: 6px 12px; 
             border-radius: 20px; 
-            font-size: 0.8rem; 
+            font-size: 0.75rem; 
             font-weight: 600; 
             cursor: pointer;
-            min-width: 90px;
+            min-width: 80px;
             text-align: center;
             transition: all 0.3s;
-            border: 2px solid transparent;
-        }
-        .status-badge:hover, .call-status-badge:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
         .status-pending { 
             background: var(--pending); 
@@ -383,6 +357,7 @@
             text-decoration: none;
         }
         .call-btn:hover { background: #059669; transform: translateY(-1px); }
+        .call-btn:active { transform: translateY(0); }
         .action-btn {
             width: 44px;
             height: 44px;
@@ -400,7 +375,7 @@
         .action-btn:hover { transform: scale(1.1); }
         .action-btn:active { transform: scale(0.95); }
 
-        /* FAB & Form - SAME */
+        /* FAB & Form - SAME AS FIRST */
         .fab {
             position: fixed;
             bottom: 20px;
@@ -428,7 +403,7 @@
             display: none;
         }
 
-        /* Edit Modal - SAME */
+        /* Edit Modal - SAME AS FIRST */
         .edit-modal {
             display: none;
             position: fixed;
@@ -494,6 +469,7 @@
             border-color: var(--primary); 
             box-shadow: 0 0 0 3px rgba(0,184,148,0.1); 
         }
+        .phone-required { border-color: #ef4444 !important; }
         .add-candidate-btn, .save-edit-btn {
             width: 100%; 
             padding: 16px; 
@@ -512,7 +488,7 @@
             box-shadow: 0 10px 25px rgba(0,184,148,0.4); 
         }
 
-        /* Responsive - SAME */
+        /* Responsive - Cards Primary + Table Desktop */
         @media (max-width: 768px) {
             .mentor-header { padding: 12px 16px; }
             .mentor-container { padding: 16px 12px; }
@@ -521,12 +497,18 @@
             .stat-number { font-size: 1.4rem; }
             .candidate-card { 
                 flex-direction: column; 
-                gap: 16px; 
+                gap: 12px; 
                 padding: 20px 16px;
             }
             .candidate-actions { 
+                flex-direction: row; 
                 width: 100%; 
                 justify-content: flex-end; 
+            }
+            .call-btn { 
+                flex: 1; 
+                max-width: 200px; 
+                justify-content: center;
             }
             .section-header { 
                 flex-direction: column; 
@@ -537,36 +519,45 @@
             .filters-header { flex-direction: column; gap: 12px; align-items: stretch; }
             .modal-content { width: 95%; margin: 10px; transform: translate(-50%, -50%) scale(0.98); }
             .fab { bottom: 16px; right: 16px; width: 52px; height: 52px; }
-            .candidate-status { flex-direction: column; gap: 8px; align-items: flex-start; }
         }
         @media (max-width: 480px) {
             .stats-grid { grid-template-columns: 1fr; }
             .mentor-container { padding: 12px 8px; }
         }
+        @media (min-width: 769px) {
+            .candidate-card { padding: 16px 20px; }
+            .mentor-container { padding: 24px; }
+        }
     </style>
 </head>
 <body>
-    <!-- SAME HTML STRUCTURE -->
+    <!-- EXACT SAME HTML STRUCTURE AS FIRST -->
+    <!-- Sidebar -->
     <nav class="sidebar" id="sidebar">
         <div class="sidebar-header">
             <h2 class="logo">Karan SIR</h2>
         </div>
         <ul class="sidebar-menu">
             <li class="menu-item active" onclick="goToMain()">
-                <i class="fas fa-home"></i> Dashboard
+                <i class="fas fa-home"></i>
+                Dashboard
             </li>
             <li class="menu-item" onclick="toggleSidebar()">
-                <i class="fas fa-users"></i> Candidates
+                <i class="fas fa-users"></i>
+                Candidates
             </li>
             <li class="menu-item" onclick="openViewModal()">
-                <i class="fas fa-chart-line"></i> Report
+                <i class="fas fa-chart-line"></i>
+                Report
             </li>
             <li class="menu-item" onclick="toggleSidebar()">
-                <i class="fas fa-cog"></i> Settings
+                <i class="fas fa-cog"></i>
+                Settings
             </li>
         </ul>
     </nav>
 
+    <!-- Header -->
     <header class="mentor-header">
         <div class="mentor-welcome" onclick="toggleSidebar()">
             <div class="mentor-avatar" id="mentorAvatar">K</div>
@@ -576,11 +567,14 @@
             </div>
         </div>
         <button class="logout-btn" onclick="logout()">
-            <i class="fas fa-sign-out-alt"></i> Logout
+            <i class="fas fa-sign-out-alt"></i>
+            Logout
         </button>
     </header>
 
+    <!-- Main Container -->
     <main class="mentor-container">
+        <!-- Stats Grid -->
         <div class="stats-grid">
             <div class="stat-card">
                 <i class="fas fa-users stat-icon today-leads"></i>
@@ -604,18 +598,13 @@
             </div>
         </div>
 
+        <!-- Filters -->
         <section class="filters-section">
             <div class="filters-header">
                 <h3><i class="fas fa-filter"></i> Filters</h3>
                 <button class="clear-filters" onclick="clearFilters()">Clear All</button>
             </div>
             <div class="filter-group">
-                <select class="filter-select" id="filterDate" onchange="applyFilters()">
-                    <option value="">All Dates</option>
-                    <option value="today">Today</option>
-                    <option value="week">This Week</option>
-                    <option value="month">This Month</option>
-                </select>
                 <select class="filter-select" id="filterCallStatus" onchange="applyFilters()">
                     <option value="">All Call Status</option>
                     <option value="not_called">Not Called</option>
@@ -639,18 +628,26 @@
             </div>
         </section>
 
+        <!-- Candidates Section -->
         <section class="candidates-section">
             <div class="section-header">
                 <h2 class="section-title">
-                    <i class="fas fa-users"></i> Candidates List
+                    <i class="fas fa-users"></i>
+                    Candidates List
                 </h2>
                 <button class="view-btn" onclick="openViewModal()">
-                    <i class="fas fa-file-pdf"></i> Generate Report
+                    <i class="fas fa-file-pdf"></i>
+                    Generate Report
                 </button>
             </div>
-            <div class="candidates-list" id="candidatesList"></div>
+
+            <!-- Mobile Cards - Primary View -->
+            <div class="candidates-list" id="candidatesList">
+                <!-- Cards populated by JS -->
+            </div>
         </section>
 
+        <!-- Add New Form -->
         <section class="form-section" id="addFormSection">
             <h3><i class="fas fa-plus-circle"></i> Add New Candidate</h3>
             <form id="candidateForm">
@@ -693,10 +690,12 @@
         </section>
     </main>
 
+    <!-- FAB -->
     <button class="fab" onclick="scrollToForm()" title="Add New Candidate">
         <i class="fas fa-plus"></i>
     </button>
 
+    <!-- Edit Modal -->
     <div class="edit-modal" id="editModal">
         <div class="modal-content">
             <div class="edit-modal-content">
@@ -710,388 +709,417 @@
                     </div>
                     <div class="form-group">
                         <label><i class="fas fa-phone"></i> Phone <span style="color: #ef4444;">*</span></label>
-                        <input type="tel" id="editPhone" required>
-                    </div>
-                    <div class="form-group">
-                        <label><i class="fas fa-graduation-cap"></i> Education</label>
-                        <input type="text" id="editEducation">
-                    </div>
-                    <div class="form-group">
-                        <label><i class="fas fa-calendar-alt"></i> Age</label>
-                        <input type="number" id="editAge">
-                    </div>
-                    <div class="form-group">
-                        <label><i class="fas fa-map-marker-alt"></i> Address</label>
-                        <input type="text" id="editAddress">
-                    </div>
-                    <div class="form-group">
-                        <label><i class="fas fa-briefcase"></i> Work Type</label>
-                        <select id="editWorkType">
-                            <option value="Full Time">Full Time</option>
-                            <option value="Part Time">Part Time</option>
-                            <option value="Freelance">Freelance</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label><i class="fas fa-star"></i> Experience</label>
-                        <input type="text" id="editExperience" value="Fresher">
-                    </div>
-                    <button type="submit" class="save-edit-btn">
-                        <i class="fas fa-save"></i> Save Changes
-                    </button>
-                </form>
-            </div>
+                        <input type="tel" id="editPhone"
+                    <input type="tel" id="editPhone" required>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-graduation-cap"></i> Education</label>
+                    <input type="text" id="editEducation">
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-calendar-alt"></i> Age</label>
+                    <input type="number" id="editAge">
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-map-marker-alt"></i> Address</label>
+                    <input type="text" id="editAddress">
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-briefcase"></i> Work Type</label>
+                    <select id="editWorkType">
+                        <option value="Full Time">Full Time</option>
+                        <option value="Part Time">Part Time</option>
+                        <option value="Freelance">Freelance</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-star"></i> Experience</label>
+                    <input type="text" id="editExperience" value="Fresher">
+                </div>
+                <button type="submit" class="save-edit-btn">
+                    <i class="fas fa-save"></i> Save Changes
+                </button>
+            </form>
         </div>
     </div>
+</div>
 
-    <script>
-        // SAME MENTORS DATA
-        const mentors = JSON.parse(localStorage.getItem('mentors')) || [
-            { id: 'karan', name: 'HR.KARAN ASKAND SIR', password: 'KK17', students: 45, earnings: '₹2.5L' },
-            { id: 'akanksha', name: 'HR.AKANKSHA MAM', password: 'A123456', students: 31, earnings: '₹1.8L' },
-            { id: 'pratham', name: 'HR.PRATHMESH PARDESHI SIR', password: 'P123456', students: 32, earnings: '₹1.9L' },
-            { id: 'garima', name: 'HR.GARIMA PANDEY MAM', password: 'G123456', students: 34, earnings: '₹1.5L' },
-            { id: 'vishal', name: 'HR.VISHAL PANSARE SIR', password: 'V123456', students: 37, earnings: '₹1.6L' },
-            { id: 'tushar', name: 'HR.TUSHAR DEORE SIR', password: 'T123456', students: 38, earnings: '₹1.7L' }
-        ];
+<script>
+    // SAME MENTORS DATA FROM MAIN PAGE
+    const mentors = JSON.parse(localStorage.getItem('mentors')) || [
+        { id: 'karan', name: 'HR.KARAN ASKAND SIR', password: 'KK17', students: 45, earnings: '₹2.5L' },
+        { id: 'akanksha', name: 'HR.AKANKSHA MAM', password: 'A123456', students: 31, earnings: '₹1.8L' },
+        { id: 'pratham', name: 'HR.PRATHMESH PARDESHI SIR', password: 'P123456', students: 32, earnings: '₹1.9L' },
+        { id: 'garima', name: 'HR.GARIMA PANDEY MAM', password: 'G123456', students: 34, earnings: '₹1.5L' },
+        { id: 'vishal', name: 'HR.VISHAL PANSARE SIR', password: 'V123456', students: 37, earnings: '₹1.6L' },
+        { id: 'tushar', name: 'HR.TUSHAR DEORE SIR', password: 'T123456', students: 38, earnings: '₹1.7L' }
+    ];
 
-        const mentorData = JSON.parse(localStorage.getItem('mentorLoggedIn'));
-        let candidates = JSON.parse(localStorage.getItem(`candidates_${mentorData?.id}`)) || [];
-        let editingCandidateId = null;
-        let currentFilters = { date: '', callStatus: '', status: '', workType: '' };
+    // Global variables
+    const mentorData = JSON.parse(localStorage.getItem('mentorLoggedIn'));
+    let candidates = JSON.parse(localStorage.getItem(`candidates_${mentorData?.id}`)) || [];
+    let editingCandidateId = null;
+    let currentFilters = {
+        callStatus: '',
+        status: '',
+        workType: ''
+    };
 
-        if (!mentorData) {
-            window.location.href = 'index.html';
+    // Security check
+    if (!mentorData) {
+        window.location.href = 'index.html';
+    }
+
+    // Initialize dashboard
+    function initDashboard() {
+        document.getElementById('mentorName').textContent = mentorData.name;
+        document.getElementById('mentorAvatar').textContent = mentorData.name.charAt(3);
+        renderMobileCards();
+        updateStats();
+    }
+
+    // Save data to localStorage
+    function saveData() {
+        localStorage.setItem(`candidates_${mentorData.id}`, JSON.stringify(candidates));
+    }
+
+    // Toggle sidebar (SAME AS MAIN PAGE)
+    function toggleSidebar() {
+        document.getElementById('sidebar').classList.toggle('active');
+    }
+
+    // Navigation
+    function goToMain() {
+        window.location.href = 'index.html';
+    }
+
+    // Logout
+    function logout() {
+        localStorage.removeItem('mentorLoggedIn');
+        localStorage.removeItem('adminLoggedIn');
+        window.location.href = 'index.html';
+    }
+
+    // Scroll to add form
+    function scrollToForm() {
+        document.getElementById('addFormSection').scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'start' 
+        });
+        document.getElementById('addFormSection').style.display = 'block';
+    }
+
+    // 🚀 FIXED: DIRECT view.html POPUP (NO MODAL)
+    function openViewModal() {
+        // Save ALL filtered data to sessionStorage
+        sessionStorage.setItem('pdfCandidates', JSON.stringify({
+            candidates: candidates,
+            currentFilters: currentFilters,
+            mentorData: mentorData,
+            stats: {
+                today: document.getElementById('todayLeads').textContent,
+                pending: document.getElementById('pendingLeads').textContent,
+                converted: document.getElementById('convertedLeads').textContent,
+                filtered: document.getElementById('totalCandidates').textContent
+            }
+        }));
+        
+        // ✅ DIRECT NEW WINDOW - PERFECT SIZE
+        const pdfWindow = window.open(
+            'view.html', 
+            'pdfViewer', 
+            'width=1400,height=900,scrollbars=yes,resizable=yes,top=50,left=50'
+        );
+        
+        if (pdfWindow) {
+            pdfWindow.focus();
+        } else {
+            alert('Please allow popups for this site to view PDF!');
         }
+    }
 
-        // ✅ FULLY WORKING CALL STATUS CYCLE
-        const callStatusCycle = ['not_called', 'call_cut', 'call_received', 'call_him_back', 'call_not_received', 'busy'];
+    // Call status labels
+    function getCallStatusLabel(callStatus) {
+        const labels = {
+            'not_called': 'Not Called',
+            'call_cut': 'Call Cut',
+            'call_received': 'Call Received',
+            'call_him_back': 'Call Him Back',
+            'call_not_received': 'Not Received',
+            'busy': 'Busy'
+        };
+        return labels[callStatus] || callStatus;
+    }
 
-        function getNextCallStatus(currentStatus) {
-            const currentIndex = callStatusCycle.indexOf(currentStatus || 'not_called');
-            return callStatusCycle[(currentIndex + 1) % callStatusCycle.length];
-        }
+    // Call status badges (clickable cycle)
+    function getCallStatusBadge(callStatus, candidateId) {
+        const statuses = {
+            'not_called': `<span class="call-status-badge call-status-not_called" onclick="cycleCallStatus(${candidateId}, 'call_cut')">Not Called</span>`,
+            'call_cut': `<span class="call-status-badge call-status-call_cut" onclick="cycleCallStatus(${candidateId}, 'call_received')">Call Cut</span>`,
+            'call_received': `<span class="call-status-badge call-status-call_received" onclick="cycleCallStatus(${candidateId}, 'call_him_back')">Call Received</span>`,
+            'call_him_back': `<span class="call-status-badge call-status-call_him_back" onclick="cycleCallStatus(${candidateId}, 'call_not_received')">Call Him Back</span>`,
+            'call_not_received': `<span class="call-status-badge call-status-call_not_received" onclick="cycleCallStatus(${candidateId}, 'busy')">Not Received</span>`,
+            'busy': `<span class="call-status-badge call-status-busy" onclick="cycleCallStatus(${candidateId}, 'not_called')">Busy</span>`
+        };
+        return statuses[callStatus] || statuses['not_called'];
+    }
 
-        function getCallStatusLabel(status) {
-            const labels = {
-                'not_called': 'Not Called',
-                'call_cut': 'Call Cut', 
-                'call_received': 'Call Received',
-                'call_him_back': 'Call Him Back',
-                'call_not_received': 'Not Received',
-                'busy': 'Busy'
-            };
-            return labels[status] || 'Not Called';
-        }
-
-        function initDashboard() {
-            document.getElementById('mentorName').textContent = mentorData.name;
-            document.getElementById('mentorAvatar').textContent = mentorData.name.charAt(3);
-            sortCandidatesByDate();
+    // Cycle call status
+    function cycleCallStatus(candidateId, nextStatus) {
+        const candidate = candidates.find(c => c.id === candidateId);
+        if (candidate) {
+            candidate.callStatus = nextStatus;
+            saveData();
             renderMobileCards();
             updateStats();
         }
+    }
 
-        function sortCandidatesByDate() {
-            candidates.sort((a, b) => new Date(b.entryFull) - new Date(a.entryFull));
-        }
+    // Apply filters
+    function applyFilters() {
+        currentFilters.callStatus = document.getElementById('filterCallStatus').value;
+        currentFilters.status = document.getElementById('filterStatus').value;
+        currentFilters.workType = document.getElementById('filterWorkType').value;
+        renderMobileCards();
+        updateStats();
+    }
 
-        function saveData() {
-            localStorage.setItem(`candidates_${mentorData.id}`, JSON.stringify(candidates));
-        }
+    // Clear filters
+    function clearFilters() {
+        document.getElementById('filterCallStatus').value = '';
+        document.getElementById('filterStatus').value = '';
+        document.getElementById('filterWorkType').value = '';
+        currentFilters = { callStatus: '', status: '', workType: '' };
+        renderMobileCards();
+        updateStats();
+    }
 
-        function toggleSidebar() {
-            document.getElementById('sidebar').classList.toggle('active');
-        }
-
-        function goToMain() {
-            window.location.href = 'index.html';
-        }
-
-        function logout() {
-            localStorage.removeItem('mentorLoggedIn');
-            localStorage.removeItem('adminLoggedIn');
-            window.location.href = 'index.html';
-        }
-
-        function scrollToForm() {
-            document.getElementById('addFormSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
-            document.getElementById('addFormSection').style.display = 'block';
-        }
-
-        function openViewModal() {
-            sessionStorage.setItem('pdfCandidates', JSON.stringify({
-                candidates: candidates,
-                currentFilters: currentFilters,
-                mentorData: mentorData,
-                stats: {
-                    today: document.getElementById('todayLeads').textContent,
-                    pending: document.getElementById('pendingLeads').textContent,
-                    converted: document.getElementById('convertedLeads').textContent,
-                    filtered: document.getElementById('totalCandidates').textContent
-                }
-            }));
-            const pdfWindow = window.open('view.html', 'pdfViewer', 'width=1400,height=900,scrollbars=yes,resizable=yes,top=50,left=50');
-            if (pdfWindow) pdfWindow.focus();
-            else alert('Please allow popups for this site to view PDF!');
-        }
-
-        // ✅ WORKING STATUS FUNCTIONS
-        function cycleCallStatus(candidateId) {
-            const candidate = candidates.find(c => c.id == candidateId);
-            if (candidate) {
-                candidate.callStatus = getNextCallStatus(candidate.callStatus);
-                saveData();
-                renderMobileCards();
-                updateStats();
-            }
-        }
-
-        function toggleStatus(candidateId) {
-            const candidate = candidates.find(c => c.id == candidateId);
-            if (candidate) {
-                candidate.status = candidate.status === 'Pending Follow-up' ? 'Converted' : 'Pending Follow-up';
-                saveData();
-                renderMobileCards();
-                updateStats();
-            }
-        }
-
-        function applyFilters() {
-            currentFilters.date = document.getElementById('filterDate').value;
-            currentFilters.callStatus = document.getElementById('filterCallStatus').value;
-            currentFilters.status = document.getElementById('filterStatus').value;
-            currentFilters.workType = document.getElementById('filterWorkType').value;
-            renderMobileCards();
-            updateStats();
-        }
-
-        function clearFilters() {
-            document.getElementById('filterDate').value = '';
-            document.getElementById('filterCallStatus').value = '';
-            document.getElementById('filterStatus').value = '';
-            document.getElementById('filterWorkType').value = '';
-            currentFilters = { date: '', callStatus: '', status: '', workType: '' };
-            renderMobileCards();
-            updateStats();
-        }
-
-        // ✅ RENDER WITH CALL BUTTON NEXT TO PHONE ONLY
-        function renderMobileCards() {
-            const container = document.getElementById('candidatesList');
-            let filteredCandidates = [...candidates];
-
-            // Date filter
-            if (currentFilters.date) {
-                const now = new Date();
-                filteredCandidates = filteredCandidates.filter(candidate => {
-                    const candidateDate = new Date(candidate.entryFull);
-                    if (currentFilters.date === 'today') return candidateDate.toDateString() === now.toDateString();
-                    if (currentFilters.date === 'week') {
-                        const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
-                        return candidateDate >= weekAgo;
-                    }
-                    if (currentFilters.date === 'month') {
-                        const monthAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
-                        return candidateDate >= monthAgo;
-                    }
-                });
-            }
-
-            // Other filters
-            if (currentFilters.callStatus) filteredCandidates = filteredCandidates.filter(c => c.callStatus === currentFilters.callStatus);
-            if (currentFilters.status) filteredCandidates = filteredCandidates.filter(c => c.status === currentFilters.status);
-            if (currentFilters.workType) filteredCandidates = filteredCandidates.filter(c => c.workType === currentFilters.workType);
-
-            filteredCandidates.sort((a, b) => new Date(b.entryFull) - new Date(a.entryFull));
-
-            container.innerHTML = filteredCandidates.map(candidate => {
-                const statusClass = candidate.status === 'Pending Follow-up' ? 'status-pending' : 'status-converted';
-                const callStatusClass = `call-status-${candidate.callStatus || 'not_called'}`;
-                const date = new Date(candidate.entryFull).toLocaleDateString('en-IN');
-
-                return `
-                    <div class="candidate-card" data-id="${candidate.id}">
-                        <div class="candidate-info">
-                            <div class="candidate-name">${candidate.name || 'N/A'}</div>
-                            <div class="candidate-meta">
-                                <span class="candidate-phone">
-                                    <i class="fas fa-phone"></i> 
-                                    ${candidate.phone}
-                                    <a href="tel:${candidate.phone}" class="candidate-phone-call" title="Call ${candidate.phone}">
-                                        <i class="fas fa-phone"></i> CALL
-                                    </a>
-                                </span>
-                                <span><i class="fas fa-calendar"></i> ${date}</span>
-                                ${candidate.education ? `<span><i class="fas fa-graduation-cap"></i> ${candidate.education}</span>` : ''}
-                                ${candidate.age ? `<span><i class="fas fa-calendar-alt"></i> ${candidate.age} yrs</span>` : ''}
-                                <span><i class="fas fa-briefcase"></i> ${candidate.workType || 'N/A'}</span>
-                            </div>
-                            <div class="candidate-status">
-                                <span class="call-status-badge ${callStatusClass}" onclick="cycleCallStatus(${candidate.id})">
-                                    ${getCallStatusLabel(candidate.callStatus || 'not_called')}
-                                </span>
-                                <span class="status-badge ${statusClass}" onclick="toggleStatus(${candidate.id})">
-                                    ${candidate.status}
-                                </span>
-                            </div>
-                        </div>
-                        <div class="candidate-actions">
-                            <button class="action-btn edit-btn" onclick="editCandidate(${candidate.id})" title="Edit">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="action-btn delete-btn" onclick="deleteCandidate(${candidate.id})" title="Delete">
-                                <i class="fas fa-trash"></i>
-                            </button>
+    // Render mobile cards (PRIMARY VIEW - ALL DEVICES) - EXACT SAME LOGIC AS FIRST
+    function renderMobileCards() {
+        const container = document.getElementById('candidatesList');
+        const filteredCandidates = [...candidates]
+            .sort((a, b) => new Date(b.entryFull) - new Date(a.entryFull))
+            .filter(candidate => {
+                return (!currentFilters.callStatus || candidate.callStatus === currentFilters.callStatus) &&
+                       (!currentFilters.status || candidate.status === currentFilters.status) &&
+                       (!currentFilters.workType || candidate.workType === currentFilters.workType);
+            });
+        
+        container.innerHTML = filteredCandidates.map(candidate => {
+            const statusClass = candidate.status === 'Pending Follow-up' ? 'status-pending' : 'status-converted';
+            const callStatusBadge = getCallStatusBadge(candidate.callStatus || 'not_called', candidate.id);
+            
+            return `
+                <div class="candidate-card">
+                    <div class="candidate-info">
+                        <h4 class="candidate-name">${candidate.name || 'N/A'}</h4>
+                        <div class="candidate-meta">
+                            <span class="candidate-phone">
+                                <i class="fas fa-phone"></i> 
+                                <a href="tel:${candidate.phone}" style="color: var(--primary); text-decoration: none;">${candidate.phone}</a>
+                            </span>
+                            <span><i class="fas fa-graduation-cap"></i> ${candidate.education || 'N/A'}</span>
+                            <span><i class="fas fa-calendar-alt"></i> ${candidate.age || 'N/A'}</span>
+                            <span><i class="fas fa-map-marker-alt"></i> ${candidate.address || 'N/A'}</span>
+                            <span><i class="fas fa-briefcase"></i> ${candidate.workType || 'N/A'}</span>
+                            ${callStatusBadge}
+                            <span class="status-badge ${statusClass}" onclick="toggleStatus(${candidate.id})">${candidate.status}</span>
+                            <span><i class="fas fa-calendar"></i> ${new Date(candidate.entryFull).toLocaleDateString('en-IN')}</span>
                         </div>
                     </div>
-                `;
-            }).join('');
-        }
+                    <div class="candidate-actions">
+                        <a href="tel:${candidate.phone}" class="call-btn" onclick="makeCall('${candidate.phone}')">
+                            <i class="fas fa-phone"></i> Call
+                        </a>
+                        <button class="action-btn edit-btn" onclick="editCandidate(${candidate.id})" title="Edit">
+                            <i class="fas fa-pencil-alt"></i>
+                        </button>
+                        <button class="action-btn delete-btn" onclick="deleteCandidate(${candidate.id})" title="Delete">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
 
-        function updateStats() {
-            const now = new Date();
-            const today = candidates.filter(c => new Date(c.entryFull).toDateString() === now.toDateString()).length;
-            const pendingCalls = candidates.filter(c => c.callStatus === 'not_called').length;
-            const converted = candidates.filter(c => c.status === 'Converted').length;
-            const total = candidates.length;
+    // Update stats
+    function updateStats() {
+        const today = candidates.filter(c => 
+            new Date(c.entryFull).toDateString() === new Date().toDateString()
+        ).length;
+        const pending = candidates.filter(c => c.status === 'Pending Follow-up').length;
+        const converted = candidates.filter(c => c.status === 'Converted').length;
+        const filteredCount = document.querySelectorAll('.candidates-list .candidate-card').length;
 
-            document.getElementById('todayLeads').textContent = today;
-            document.getElementById('totalCandidates').textContent = total;
-            document.getElementById('pendingLeads').textContent = pendingCalls;
-            document.getElementById('convertedLeads').textContent = converted;
-        }
+        document.getElementById('todayLeads').textContent = today;
+        document.getElementById('pendingLeads').textContent = pending;
+        document.getElementById('convertedLeads').textContent = converted;
+        document.getElementById('totalCandidates').textContent = filteredCount;
+    }
 
-        function editCandidate(candidateId) {
-            const candidate = candidates.find(c => c.id == candidateId);
-            if (!candidate) return;
+    // Edit candidate
+    function editCandidate(candidateId) {
+        const candidate = candidates.find(c => c.id === candidateId);
+        if (!candidate) return;
 
-            editingCandidateId = candidateId;
-            document.getElementById('editCandidateId').value = candidate.id;
-            document.getElementById('editName').value = candidate.name || '';
-            document.getElementById('editPhone').value = candidate.phone;
-            document.getElementById('editEducation').value = candidate.education || '';
-            document.getElementById('editAge').value = candidate.age || '';
-            document.getElementById('editAddress').value = candidate.address || '';
-            document.getElementById('editWorkType').value = candidate.workType || '';
-            document.getElementById('editExperience').value = candidate.experience || '';
+        editingCandidateId = candidateId;
+        document.getElementById('editCandidateId').value = candidate.id;
+        document.getElementById('editPhone').value = candidate.phone;
+        document.getElementById('editName').value = candidate.name || '';
+        document.getElementById('editAge').value = candidate.age || '';
+        document.getElementById('editEducation').value = candidate.education || '';
+        document.getElementById('editWorkType').value = candidate.workType || '';
+        document.getElementById('editAddress').value = candidate.address || '';
+        document.getElementById('editExperience').value = candidate.experience || '';
 
-            document.getElementById('editModal').style.display = 'block';
-            document.body.style.overflow = 'hidden';
-        }
+        document.getElementById('editModal').style.display = 'block';
+        document.body.style.overflow = 'hidden';
+    }
 
-        function closeEditModal() {
-            document.getElementById('editModal').style.display = 'none';
-            document.body.style.overflow = '';
-            editingCandidateId = null;
-        }
+    function closeEditModal() {
+        document.getElementById('editModal').style.display = 'none';
+        document.body.style.overflow = '';
+        editingCandidateId = null;
+    }
 
-        function deleteCandidate(candidateId) {
-            if (confirm('Are you sure you want to delete this candidate?')) {
-                candidates = candidates.filter(c => c.id != candidateId);
-                saveData();
-                renderMobileCards();
-                updateStats();
-                alert('✅ Candidate deleted successfully!');
-            }
-        }
-
-        // Form handlers
-        document.getElementById('candidateForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const phone = document.getElementById('phone').value;
-            
-            if (!phone) {
-                alert('❌ Phone number is required!');
-                return;
-            }
-
-            if (candidates.some(c => c.phone === phone)) {
-                alert('❌ Phone number already exists!');
-                return;
-            }
-
-            const newCandidate = {
-                id: Date.now(),
-                name: document.getElementById('name').value || '',
-                phone: phone,
-                age: document.getElementById('age').value || '',
-                education: document.getElementById('education').value || '',
-                address: document.getElementById('address').value || '',
-                workType: document.getElementById('workType').value || '',
-                experience: document.getElementById('experience').value || 'Fresher',
-                status: 'Pending Follow-up',
-                callStatus: 'not_called',
-                entryTime: new Date().toLocaleDateString('en-IN'),
-                entryFull: new Date().toISOString()
-            };
-            
-            candidates.unshift(newCandidate);
+    // Make call
+    function makeCall(phone) {
+        window.location.href = `tel:${phone}`;
+        const candidate = candidates.find(c => c.phone === phone);
+        if (candidate) {
+            candidate.callStatus = 'call_him_back';
             saveData();
-            sortCandidatesByDate();
-            e.target.reset();
             renderMobileCards();
             updateStats();
-            document.getElementById('addFormSection').style.display = 'none';
-            alert('✅ Candidate added successfully!');
-        });
+        }
+    }
 
-        document.getElementById('editForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const phone = document.getElementById('editPhone').value;
+    // Toggle status
+    function toggleStatus(candidateId) {
+        const candidate = candidates.find(c => c.id === candidateId);
+        if (candidate) {
+            candidate.status = candidate.status === 'Pending Follow-up' ? 'Converted' : 'Pending Follow-up';
+            saveData();
+            renderMobileCards();
+            updateStats();
+        }
+    }
+
+    // Delete candidate
+    function deleteCandidate(candidateId) {
+        if (confirm('Are you sure you want to delete this candidate?')) {
+            candidates = candidates.filter(c => c.id !== candidateId);
+            saveData();
+            renderMobileCards();
+            updateStats();
+            alert('✅ Candidate deleted successfully!');
+        }
+    }
+
+    // Form submissions
+    document.getElementById('editForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const phone = document.getElementById('editPhone').value;
+        
+        if (!phone) {
+            alert('❌ Phone number is required!');
+            return;
+        }
+
+        // Check duplicate phone
+        const otherCandidates = candidates.filter(c => c.id !== editingCandidateId);
+        const phoneExists = otherCandidates.some(c => c.phone === phone);
+        if (phoneExists) {
+            alert('❌ Phone number already exists!');
+            return;
+        }
+
+        const candidateIndex = candidates.findIndex(c => c.id === editingCandidateId);
+        if (candidateIndex !== -1) {
+            candidates[candidateIndex] = {
+                ...candidates[candidateIndex],
+                phone,
+                name: document.getElementById('editName').value || '',
+                age: document.getElementById('editAge').value || '',
+                education: document.getElementById('editEducation').value || '',
+                workType: document.getElementById('editWorkType').value || '',
+                address: document.getElementById('editAddress').value || '',
+                experience: document.getElementById('editExperience').value || 'Fresher'
+            };
             
-            if (!phone) {
-                alert('❌ Phone number is required!');
-                return;
-            }
+            saveData();
+            renderMobileCards();
+            updateStats();
+            closeEditModal();
+            alert('✅ Candidate updated successfully!');
+        }
+    });
 
-            const otherCandidates = candidates.filter(c => c.id != editingCandidateId);
-            if (otherCandidates.some(c => c.phone === phone)) {
-                alert('❌ Phone number already exists!');
-                return;
-            }
+    document.getElementById('candidateForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const phone = document.getElementById('phone').value;
+        
+        if (!phone) {
+            alert('❌ Phone number is required!');
+            return;
+        }
 
-            const candidateIndex = candidates.findIndex(c => c.id == editingCandidateId);
-            if (candidateIndex !== -1) {
-                candidates[candidateIndex] = {
-                    ...candidates[candidateIndex],
-                    name: document.getElementById('editName').value || '',
-                    phone,
-                    age: document.getElementById('editAge').value || '',
-                    education: document.getElementById('editEducation').value || '',
-                    address: document.getElementById('editAddress').value || '',
-                    workType: document.getElementById('editWorkType').value || '',
-                    experience: document.getElementById('editExperience').value || 'Fresher'
-                };
-                
-                saveData();
-                sortCandidatesByDate();
-                renderMobileCards();
-                updateStats();
-                closeEditModal();
-                alert('✅ Candidate updated successfully!');
-            }
-        });
+        // Check duplicate phone
+        const phoneExists = candidates.some(c => c.phone === phone);
+        if (phoneExists) {
+            alert('❌ Phone number already exists!');
+            return;
+        }
 
-        // Event listeners
-        document.getElementById('editModal').addEventListener('click', (e) => {
-            if (e.target.classList.contains('edit-modal')) closeEditModal();
-        });
+        const newCandidate = {
+            id: Date.now(),
+            name: document.getElementById('name').value || '',
+            phone: phone,
+            age: document.getElementById('age').value || '',
+            education: document.getElementById('education').value || '',
+            address: document.getElementById('address').value || '',
+            workType: document.getElementById('workType').value || '',
+            experience: document.getElementById('experience').value || 'Fresher',
+            status: 'Pending Follow-up',
+            callStatus: 'not_called',
+            entryTime: new Date().toLocaleDateString('en-IN'),
+            entryFull: new Date().toISOString()
+        };
+        
+        candidates.unshift(newCandidate);
+        saveData();
+        e.target.reset();
+        renderMobileCards();
+        updateStats();
+        document.getElementById('addFormSection').style.display = 'none';
+        alert('✅ Candidate added successfully!');
+    });
 
-        document.addEventListener('dblclick', (e) => {
-            if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'SELECT' && e.target.tagName !== 'BUTTON') {
-                toggleSidebar();
-            }
-        });
+    // Modal backdrop clicks
+    document.getElementById('editModal').addEventListener('click', (e) => {
+        if (e.target.classList.contains('edit-modal')) {
+            closeEditModal();
+        }
+    });
 
-        document.addEventListener('click', (e) => {
-            const sidebar = document.getElementById('sidebar');
-            if (sidebar.classList.contains('active') && !sidebar.contains(e.target)) {
-                sidebar.classList.remove('active');
-            }
-        });
+    // DOUBLE-CLICK SIDEBAR (SAME AS MAIN PAGE)
+    document.addEventListener('dblclick', (e) => {
+        if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'SELECT' && e.target.tagName !== 'BUTTON') {
+            toggleSidebar();
+        }
+    });
 
-        document.addEventListener('DOMContentLoaded', initDashboard);
-    </script>
+    // Close sidebar on outside click
+    document.addEventListener('click', (e) => {
+        const sidebar = document.getElementById('sidebar');
+        if (sidebar.classList.contains('active') && !sidebar.contains(e.target)) {
+            sidebar.classList.remove('active');
+        }
+    });
+
+    // Initialize
+    initDashboard();
+</script>
 </body>
 </html>
