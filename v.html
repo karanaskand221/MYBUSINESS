@@ -24,9 +24,8 @@
             padding: 10px;
         }
 
-        /* Container styling */
         .pdf-preview-container {
-            max-width: 1100px; /* Fixed width for consistent PDF layout */
+            max-width: 1200px;
             margin: 0 auto;
             background: white;
             border-radius: 15px;
@@ -43,7 +42,7 @@
 
         .pdf-stats {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 15px;
             padding: 20px;
         }
@@ -57,6 +56,7 @@
             border: 1px solid #eee;
         }
 
+        .stat-icon { font-size: 1.5rem; margin-bottom: 5px; }
         .stat-number { font-size: 1.5rem; font-weight: 700; }
         .stat-label { color: #64748b; font-size: 0.8rem; }
 
@@ -67,6 +67,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 10px;
         }
 
         .download-btn {
@@ -77,16 +78,29 @@
             border-radius: 25px;
             font-weight: 600;
             cursor: pointer;
+            white-space: nowrap;
         }
 
+        .filter-info {
+            background: #e8f5e8;
+            padding: 10px 20px;
+            margin: 10px 20px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+            font-size: 0.9rem;
+        }
+
+        /* Essential for PDF rendering consistency */
         .table-responsive {
             width: 100%;
+            overflow-x: auto;
             padding: 0 20px 20px;
         }
 
         .candidates-table {
             width: 100%;
             border-collapse: collapse;
+            min-width: 900px; /* Forces enough width for PDF layout */
         }
 
         .candidates-table th, .candidates-table td {
@@ -106,11 +120,8 @@
         .status-pending { background: var(--pending); color: #92400e; }
         .status-converted { background: #d1fae5; color: #065f46; }
 
-        /* Mobile specific adjustments to maintain view while editing, 
-           but html2pdf will use the wide container for the actual file */
-        @media (max-width: 600px) {
-            .pdf-stats { grid-template-columns: repeat(2, 1fr); }
-            .pdf-preview-container { overflow-x: auto; }
+        @media print {
+            .pdf-controls, .close-btn { display: none !important; }
         }
     </style>
 </head>
@@ -146,11 +157,15 @@
             </div>
         </div>
 
-        <div class="pdf-controls" id="ignorePDF">
+        <div class="pdf-controls">
             <h3 style="margin:0; font-size: 1rem;"><i class="fas fa-table"></i> Preview</h3>
             <button class="download-btn" onclick="downloadPDF()">
                 <i class="fas fa-download"></i> Download PDF
             </button>
+        </div>
+
+        <div class="filter-info" id="filterInfo" style="display: none;">
+            <strong>Applied Filters:</strong> <span id="filterText"></span>
         </div>
 
         <div class="table-responsive">
@@ -172,61 +187,107 @@
     </div>
 
     <script>
-        // Load data from SessionStorage [cite: 3, 10]
         const data = JSON.parse(sessionStorage.getItem('pdfCandidates'));
         
         if (!data) {
             alert('No data found.');
-        } else {
-            document.getElementById('mentorNameHeader').textContent = `${data.mentorData.name}'s Report`;
-            document.getElementById('reportDate').textContent = `Generated: ${new Date().toLocaleString('en-IN')}`;
-            
-            // Stats 
-            document.getElementById('todayLeads').textContent = data.stats.today;
-            document.getElementById('pendingLeads').textContent = data.stats.pending;
-            document.getElementById('convertedLeads').textContent = data.stats.converted;
-
-            const filtered = data.candidates.filter(c => {
-                const matchesCall = !data.currentFilters.callStatus || c.callStatus === data.currentFilters.callStatus;
-                const matchesStatus = !data.currentFilters.status || c.status === data.currentFilters.status;
-                const matchesWork = !data.currentFilters.workType || c.workType === data.currentFilters.workType;
-                return matchesCall && matchesStatus && matchesWork;
-            });
-
-            document.getElementById('filteredCount').textContent = filtered.length;
-
-            const tbody = document.getElementById('pdfTableBody');
-            tbody.innerHTML = filtered.map(c => `
-                <tr>
-                    <td><b>${c.name || 'N/A'}</b></td>
-                    <td>${c.phone}</td>
-                    <td>${c.callStatus.replace('_', ' ')}</td>
-                    <td>${c.education || 'N/A'}</td>
-                    <td>${c.workType || 'Full Time'}</td>
-                    <td><span class="status-badge ${c.status === 'Converted' ? 'status-converted' : 'status-pending'}">${c.status}</span></td>
-                    <td>${new Date(c.entryFull).toLocaleDateString('en-IN')}</td>
-                </tr>
-            `).join('');
+            window.close();
         }
 
+        // 1. Populate Header Info
+        document.getElementById('mentorNameHeader').textContent = `${data.mentorData.name}'s Report`;
+        document.getElementById('reportDate').textContent = `Generated: ${new Date().toLocaleString('en-IN')}`;
+
+        // 2. Filter Logic (Including Date Filter)
+        const filteredCandidates = data.candidates.filter(candidate => {
+            const matchesCall = !data.currentFilters.callStatus || candidate.callStatus === data.currentFilters.callStatus;
+            const matchesStatus = !data.currentFilters.status || candidate.status === data.currentFilters.status;
+            const matchesWork = !data.currentFilters.workType || candidate.workType === data.currentFilters.workType;
+            
+            // Date Filter Logic
+            let matchesDate = true;
+            if (data.currentFilters.date) {
+                const candidateDate = new Date(candidate.entryFull).toISOString().split('T')[0];
+                matchesDate = (candidateDate === data.currentFilters.date);
+            }
+
+            return matchesCall && matchesStatus && matchesWork && matchesDate;
+        }).sort((a, b) => new Date(b.entryFull) - new Date(a.entryFull));
+
+        // 3. Update Stats and Filter Text
+        document.getElementById('filteredCount').textContent = filteredCandidates.length;
+        document.getElementById('todayLeads').textContent = data.stats.today;
+        document.getElementById('pendingLeads').textContent = data.stats.pending;
+        document.getElementById('convertedLeads').textContent = data.stats.converted;
+
+        if (Object.values(data.currentFilters).some(val => val)) {
+            const f = data.currentFilters;
+            const labels = [];
+            if (f.date) labels.push(`Date: ${f.date}`);
+            if (f.callStatus) labels.push(`Call: ${f.callStatus.replace('_', ' ')}`);
+            if (f.status) labels.push(`Status: ${f.status}`);
+            if (f.workType) labels.push(`Work: ${f.workType}`);
+            
+            document.getElementById('filterText').textContent = labels.join(' | ');
+            document.getElementById('filterInfo').style.display = 'block';
+        }
+
+        // 4. Render Table
+        const tbody = document.getElementById('pdfTableBody');
+        tbody.innerHTML = filteredCandidates.map(c => `
+            <tr>
+                <td><b>${c.name || 'N/A'}</b></td>
+                <td>${c.phone}</td>
+                <td><span class="status-badge" style="border:1px solid #ddd">${getCallStatusLabel(c.callStatus)}</span></td>
+                <td>${c.education || 'N/A'}</td>
+                <td>${c.workType || 'N/A'}</td>
+                <td><span class="status-badge ${c.status === 'Converted' ? 'status-converted' : 'status-pending'}">${c.status}</span></td>
+                <td>${new Date(c.entryFull).toLocaleDateString('en-IN')}</td>
+            </tr>
+        `).join('');
+
+        function getCallStatusLabel(status) {
+            const map = {
+                'not_called': 'Not Called',
+                'call_cut': 'Call Cut',
+                'call_received': 'Received',
+                'call_him_back': 'Call Back',
+                'call_not_received': 'No Answer',
+                'busy': 'Busy'
+            };
+            return map[status] || status;
+        }
+
+        // 5. Improved PDF Generation for Mobile/Desktop
         function downloadPDF() {
             const element = document.getElementById('pdfPreview');
+            const downloadBtn = document.querySelector('.download-btn');
+            
+            // Hide buttons during capture
+            downloadBtn.style.display = 'none';
+
             const opt = {
-                margin: 0.3,
-                filename: `Report_HR_${data.mentorData.name}_${new Date().toISOString().split('T')[0]}.pdf`,
+                margin: 0.2,
+                filename: `Report_${data.mentorData.name}_${new Date().toISOString().split('T')[0]}.pdf`,
                 image: { type: 'jpeg', quality: 0.98 },
                 html2canvas: { 
-                    scale: 2, 
+                    scale: 2, // High resolution
                     useCORS: true,
-                    // FORCE THE CANVAS TO BE WIDE EVEN ON MOBILE
-                    windowWidth: 1200 
+                    logging: false,
+                    letterRendering: true,
+                    // Critical for mobile: Ensure the canvas uses a fixed width regardless of screen size
+                    width: element.scrollWidth 
                 },
-                jsPDF: { unit: 'in', format: 'a4', orientation: 'landscape' },
-                // Exclude the download button from the PDF [cite: 9]
-                ignoreElements: (el) => el.id === 'ignorePDF'
+                jsPDF: { 
+                    unit: 'in', 
+                    format: 'a4', 
+                    orientation: 'landscape' 
+                }
             };
 
-            html2pdf().set(opt).from(element).save();
+            html2pdf().set(opt).from(element).save().then(() => {
+                downloadBtn.style.display = 'block';
+            });
         }
     </script>
 </body>
