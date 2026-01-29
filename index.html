@@ -25,26 +25,6 @@
             overflow-x: hidden; 
         }
 
-        /* 🆕 MOBILE HAMBURGER BUTTON */
-        .mobile-hamburger {
-            display: none;
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            z-index: 2500;
-            background: rgba(0,184,148,0.9);
-            color: white;
-            border: none;
-            width: 50px;
-            height: 50px;
-            border-radius: 10px;
-            font-size: 1.2rem;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(0,184,148,0.3);
-            transition: all 0.3s ease;
-        }
-        .mobile-hamburger:hover { background: var(--primary); transform: scale(1.05); }
-
         /* Sidebar */
         .sidebar { 
             position: fixed; 
@@ -222,11 +202,6 @@
             background: #fdcb6e; 
             color: var(--dark); 
         }
-        .btn-mentor { 
-            background: transparent; 
-            border: 2px solid white; 
-            color: white; 
-        }
         .btn:hover { 
             transform: translateY(-3px); 
             box-shadow: 0 10px 20px rgba(0,0,0,0.2); 
@@ -277,7 +252,15 @@
             background: #fff; 
             flex-wrap: wrap; 
         }
-        .stats-section div { text-align: center; flex: 1; min-width: 120px; }
+        .stats-section div { 
+            text-align: center; 
+            flex: 1; 
+            min-width: 120px; 
+            cursor: pointer; 
+            transition: 0.3s; 
+            padding: 10px; 
+        }
+        .stats-section div:hover { transform: scale(1.05); }
         .stats-section h3 { margin: 0; color: var(--primary); font-size: 2rem; }
         .stats-section small { opacity: 0.8; display: block; }
         .why-section { 
@@ -297,8 +280,14 @@
             background: white; 
             border-radius: 10px; 
             box-shadow: 0 5px 15px rgba(0,0,0,0.05); 
+            transition: 0.3s; 
+            cursor: pointer; 
         }
-        .feature-icon { font-size: 2rem; margin-bottom: 10px; }
+        .feature-card:hover { transform: translateY(-5px); }
+        .feature-icon { 
+            font-size: 2rem; 
+            margin-bottom: 10px; 
+        }
         .feature-card h4 { margin: 0 0 15px; }
         footer { 
             text-align: center; 
@@ -307,9 +296,8 @@
             color: white; 
         }
 
-        /* 🆕 PERFECT MOBILE RESPONSIVE */
+        /* PERFECT MOBILE RESPONSIVE */
         @media (max-width: 768px) {
-            .mobile-hamburger { display: block; }
             .hero h1 { font-size: 2rem; }
             .hero { padding: 60px 15px 100px; }
             .btn-container { flex-direction: column; align-items: center; }
@@ -326,12 +314,7 @@
     </style>
 </head>
 <body>
-    <!-- 🆕 MOBILE HAMBURGER BUTTON -->
-    <button class="mobile-hamburger" id="mobileHamburger">
-        <i class="fas fa-bars"></i>
-    </button>
-
-    <!-- SECRET SIDEBAR - DYNAMIC LOGIN/DASHBOARD -->
+    <!-- SECRET SIDEBAR - DYNAMIC LOGIN/DASHBOARD (NO HAMBURGER) -->
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
             <h2 class="logo">KK</h2>
@@ -365,7 +348,6 @@
             <form class="login-form active" id="adminForm">
                 <div class="form-group">
                     <label>Admin ID</label>
-                    <!-- ✅ FIXED: Updated placeholder to match credentials -->
                     <input type="text" id="adminId" placeholder="karanaskand" required>
                 </div>
                 <div class="form-group">
@@ -377,8 +359,8 @@
             <form class="login-form" id="mentorForm">
                 <div class="form-group">
                     <label>Mentor ID</label>
-                    <!-- ✅ FIXED: Updated placeholder to match your mentors data -->
-                    <input type="text" id="mentorId" placeholder="karanaskand7" required>
+                    <!-- ✅ FIXED: Matches your data (karan) -->
+                    <input type="text" id="mentorId" placeholder="karan" required>
                 </div>
                 <div class="form-group">
                     <label>Password</label>
@@ -389,7 +371,7 @@
         </div>
     </div>
 
-    <!-- CONTENT - SAME AS ORIGINAL -->
+    <!-- CONTENT -->
     <div class="scarcity-bar" id="scarcity-text">⚠️ UPDATE: 90 Mentorship slots are already filled this week!</div>
     
     <section class="hero">
@@ -400,19 +382,20 @@
             <div class="progress-container"><div class="progress-fill" id="progress-bar"></div></div>
             <small id="slot-count-text">90/100 Applicants already selected</small>
         </div>
+        <!-- ✅ REMOVED Mentor Dashboard button -->
         <div class="btn-container">
             <a href="work-application.html" class="btn btn-main">
                 <i class="fas fa-calendar-check"></i> Book Appointment
             </a>
-            <!-- ✅ Added Mentor button back -->
-            <button class="btn btn-mentor" onclick="toggleSidebar()">
-                <i class="fas fa-chart-line"></i> Mentor Dashboard
-            </button>
         </div>
     </section>
 
+    <!-- ✅ DOUBLE-CLICK "500+ Students Mentored" OPENS SIDEBAR -->
     <section class="stats-section">
-        <div><h3>500+</h3><small>Students Mentored</small></div>
+        <div>
+            <h3>500+</h3>
+            <small>Students Mentored</small>
+        </div>
         <div><h3>₹10L+</h3><small>Community Earnings</small></div>
         <div><h3>100%</h3><small>Legal & Verified</small></div>
     </section>
@@ -444,6 +427,7 @@
         <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80" alt="Growth Roadmap" class="roadmap-img">
     </section>
 
+    <!-- ✅ DOUBLE-CLICK "🛡️ Zero Risk" OPENS SIDEBAR -->
     <section class="why-section">
         <h2>Why Choose This Opportunity?</h2>
         <div class="features-grid">
@@ -468,15 +452,12 @@
     <footer>&copy; 2026 Business/Work Opportunity | Nashik | <strong>Leader Skilled Program</strong></footer>
 
     <script>
-        // 🆕 Mobile hamburger functionality
-        document.getElementById('mobileHamburger').addEventListener('click', toggleSidebar);
-
         // Toggle sidebar function
         function toggleSidebar() {
             document.getElementById('sidebar').classList.toggle('active');
         }
 
-        // Initialize mentors (YOUR ORIGINAL DATA - PERFECT)
+        // Initialize mentors (YOUR UPDATED DATA)
         let mentors = JSON.parse(localStorage.getItem('mentors')) || [
             { id: 'karan', name: 'HR.KARAN ASKAND SIR', password: 'KK17', students: 45, earnings: '₹2.5L' },
             { id: 'akanksha', name: 'HR.AKANKSHA MAM', password: 'A123456', students: 31, earnings: '₹1.8L' },
@@ -528,16 +509,17 @@
             }
         }
 
-        // Double tap to open sidebar (YOUR ORIGINAL)
+        // ✅ DOUBLE-CLICK ANYWHERE TO OPEN SIDEBAR (ALL DEVICES)
         document.addEventListener('dblclick', (e) => {
+            // Skip inputs and already open sidebar
             if (e.target.tagName !== 'INPUT' && !sidebar.classList.contains('active')) {
-                sidebar.classList.add('active');
+                toggleSidebar();
             }
         });
 
         // Close sidebar on outside click
         document.addEventListener('click', (e) => {
-            if (sidebar.classList.contains('active') && !sidebar.contains(e.target) && !document.getElementById('mobileHamburger').contains(e.target)) {
+            if (sidebar.classList.contains('active') && !sidebar.contains(e.target)) {
                 sidebar.classList.remove('active');
             }
         });
