@@ -99,7 +99,7 @@
                 </p>
                 <p class="success-message" style="font-size: 1.1rem; color: rgba(255,255,255,0.8);">
                     📧 <strong>k********221@gmail.com</strong> notified instantly<br>
-                    📊 Saved to <strong> Company data </strong> with timestamp<br>
+                    📊 Saved to <strong> Company data </strong><br>
                     ⏰ <strong>Call-back expected: Within 24 hours</strong>
                 </p>
                 <a href="index.html" class="back-btn">
@@ -163,10 +163,6 @@
                             <label>📄 RESUME/CV</label>
                             <input type="file" id="file_resume" accept=".pdf,image/*">
                         </div>
-                        <div class="file-input-wrapper">
-                            <label>🆔 AADHAR/PAN</label>
-                            <input type="file" id="file_aadhar" accept=".pdf,image/*">
-                        </div>
                     </div>
 
                     <button type="submit" class="submit-btn" id="submit_btn">
@@ -185,7 +181,7 @@
        
     // Load Mentors
     const mentorDropdown = document.getElementById('mentor_dropdown');
-    const mentorsList = JSON.parse(localStorage.getItem('mentors_list') || '["Karan Sir", "Team Lead", "HR Manager"]');
+    const mentorsList = JSON.parse(localStorage.getItem('mentors_list') || '["HR.Karan Sir", "HR Manager"]');
     mentorsList.forEach(mentor => {
         const option = document.createElement('option');
         option.value = mentor;
